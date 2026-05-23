@@ -1,6 +1,28 @@
 {
   "dependencies": {
     "@types/express": "^5.0.6",
-    "express": "^5.2.1"
-  }
+    "@types/node": "^25.9.1",
+    "express": "^5.2.1",
+    "typescript": "^6.0.3"
+  },
+  "name": "projetopweb",
+  "version": "1.0.0",
+  "description": "Objetivo Desenvolver uma API REST para gestão de uma concessionária de veículos com arquitetura MVC.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node dist/app.js",
+    "build": "npx tsc",
+    "dev": "ts-node src/app.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/henry300/ProjetoPWEB.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/henry300/ProjetoPWEB/issues"
+  },
+  "homepage": "https://github.com/henry300/ProjetoPWEB#readme"
 }

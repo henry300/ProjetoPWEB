@@ -1,4 +1,4 @@
-import { Carro } from "../models/Carro.ts";
+import { Carro } from "../models/Carro";
 
 export class CarroRepository{
     private static instance: CarroRepository;
@@ -12,7 +12,7 @@ export class CarroRepository{
         }
         return this.instance
     }
-    
+
     listaCarros(id:number): Carro[]{
         return this.CarroList;
     }

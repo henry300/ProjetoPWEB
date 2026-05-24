@@ -13,7 +13,7 @@ export class CarroRepository{
         return this.instance
     }
 
-    listaCarros(id:number): Carro[]{
+    listaCarros(): Carro[]{
         return this.CarroList;
     }
     listaCarroPorId(id:number): Carro | undefined{
@@ -24,5 +24,13 @@ export class CarroRepository{
     }
     deletarCarro(index:number){
         this.CarroList.splice(index,1)
+    }
+    existePlaca(placa:string):boolean{
+        return this.CarroList.some(c=>c.placa == placa)
+    }
+    atualizarCarro(carroAtualizado:Carro): Carro{
+        const index:number = this.CarroList.findIndex(carro=>carro.id_carro == carroAtualizado.id_carro)
+        this.CarroList[index] = carroAtualizado
+        return carroAtualizado;
     }
 }

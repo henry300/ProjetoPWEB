@@ -8,8 +8,8 @@ app.use(express.json());
 app.listen(PORT, () => console.log(`API rodando na URL : http://localhost:${PORT}`));
 
 app.get("/carros",listaCarros)
-app.get("/carros/:id",listarCarroPorId)
 app.get("/carros/disponiveis",listarCarrosDisponiveis)
+app.get("/carros/:id",listarCarroPorId)
 app.post("/carros",cadastrarCarro)
 app.put("/carros/:id",atualizarCarro)
 app.delete("/carros/:id",deleteCarro)

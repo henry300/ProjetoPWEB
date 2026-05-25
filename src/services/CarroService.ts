@@ -4,12 +4,18 @@ import { CarroRepository } from "../repositories/CarroRepository"
 export class CarroService {
     CarroRepository: CarroRepository = CarroRepository.getInstance()
 
-    listaCarros(): Carro[] {
-        return this.CarroRepository.listaCarros()
+    listaCarros(): Carro[] | number {
+        if(this.CarroRepository.listaCarros().length == 0){
+            throw new Error("Nenhum registro encontrado")
+        }
+        return this.CarroRepository.listaCarros().length   
     }
 
     listaCarrosId(id: any): Carro | undefined {
         const idNumber: number = parseInt(id, 10);
+        if(!this.CarroRepository.listaCarroPorId(idNumber)){
+             throw new Error("Nenhum registro encontrado");
+        }
         return this.CarroRepository.listaCarroPorId(idNumber)
     }
     cadastraCarro(carroData: any) {

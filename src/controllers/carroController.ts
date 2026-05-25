@@ -36,7 +36,15 @@ export function cadastrarCarro(req: Request, res: Response){
     }
 }
 export function atualizarCarro(req: Request, res: Response){
-
+     const carroData = req.body
+     const id = Number(req.params.id)
+    try{
+        const carroAtualizado = carroService.atualizaCarro(carroData,id)
+        res.status(200).json({message:"Carro atualizado com sucesso",carroAtualizado})
+    }
+    catch(error:any){
+        res.status(400).json(error.message)
+    }
 }
 export function deleteCarro(req: Request, res: Response){
 

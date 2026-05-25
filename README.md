@@ -29,8 +29,8 @@ O sistema deve permitir o gerenciamento completo do cadastro de clientes, vended
 - [x] GET /carros `Lista todos os carros`
 - [x] GET /carros/:id `Retorna um carro pelo id`
 - [ ] GET /carros/disponiveis `Lista carros com estoque > 0`
-- [ ] POST /carros `Cadastra um novo carro`
-- [ ] PUT /carros/:id `Atualiza um carro existente`
+- [x] POST /carros `Cadastra um novo carro`
+- [x] PUT /carros/:id `Atualiza um carro existente`
 - [ ] DELETE /carros/:id `Remove um carro (sem estoque ou notas)`
 ### Estoque
 - [ ] GET /estoque `Lista todos os registros de estoque`

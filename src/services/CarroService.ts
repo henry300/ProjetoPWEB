@@ -8,7 +8,7 @@ export class CarroService {
         if(this.CarroRepository.listaCarros().length == 0){
             throw new Error("Nenhum registro encontrado")
         }
-        return this.CarroRepository.listaCarros().length   
+        return this.CarroRepository.listaCarros()   
     }
 
     listaCarrosId(id: any): Carro | undefined {
@@ -37,7 +37,8 @@ export class CarroService {
         this.CarroRepository.cadastraCarro(novoCarro)
         return novoCarro
     }
-    atualizaCarro(carroData: Carro){
+    atualizaCarro(carroData: Carro,id_carro:number){
+        carroData.id_carro = id_carro;
         if(!carroData.marca || !carroData.modelo || !carroData.ano || !carroData.placa || !carroData.preco || !carroData.cor){
             throw new Error("Dados faltantes");
         }

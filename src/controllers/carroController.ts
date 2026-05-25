@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import { CarroService } from "../services/CarroService"
+
 const carroService = new CarroService
 
 export function listaCarros(req: Request, res: Response){
@@ -26,7 +27,13 @@ export function listarCarrosDisponiveis(req: Request, res: Response){
 }
 
 export function cadastrarCarro(req: Request, res: Response){
-
+    try{
+        const novoCarro = carroService.cadastraCarro(req.body)
+        res.status(201).json({messagem:"Produto Criado com sucesso",novoCarro})
+    }
+    catch(error:any){
+        res.status(400).json(error.message)
+    }
 }
 export function atualizarCarro(req: Request, res: Response){
 

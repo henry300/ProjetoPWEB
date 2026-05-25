@@ -24,10 +24,10 @@ export class CarroService {
         if(!carroData.marca || !carroData.modelo || !carroData.ano || !carroData.placa || !carroData.preco || !carroData.cor){
             throw new Error("Dados faltantes");
         }
-        if (carroData.ano < 1950 || carroData.ano < anoAtual+1) {
+        if (carroData.ano < 1950 || carroData.ano > anoAtual+1) {
             throw new Error("Data invalida");
         }
-        if(carroData.preco >= 0){
+        if(carroData.preco <= 0){
             throw new Error("Preço deve ser maior que 0");
         }
         if (this.CarroRepository.existePlaca(carroData.placa)) {

@@ -1,4 +1,4 @@
-export class Cliente{
+export class Estoque{
     id_estoque: number
     id_carro: string
     quantidade: number

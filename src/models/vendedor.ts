@@ -1,10 +1,10 @@
-export class vendedor{
+export class Vendedor{
     id_vendedor: number
     nome: string
     matricula: string
     comissao_percentual: number
 
-    constructor(id_vendedor: number, nome: string, matricula: string, comissao_percentual: number){
+    constructor(nome: string, matricula: string, comissao_percentual: number){
         this.id_vendedor = this.geraId()
         this.nome = nome
         this.matricula = matricula

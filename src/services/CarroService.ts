@@ -39,11 +39,23 @@ export class CarroService {
     }
     atualizaCarro(carroData: Carro,id_carro:number){
         carroData.id_carro = id_carro;
+        const dataAtual = new Date();
+        const anoAtual = dataAtual.getFullYear();
+        const cadastroAntigo = this.CarroRepository.listaCarroPorId(id_carro)
+        if(!cadastroAntigo){
+            throw new Error("Carro não encontrado");
+        }
         if(!carroData.marca || !carroData.modelo || !carroData.ano || !carroData.placa || !carroData.preco || !carroData.cor){
             throw new Error("Dados faltantes");
         }
-        if(!this.CarroRepository.listaCarroPorId(carroData.id_carro)){
-            throw new Error("Carro não encontrado");
+        if (carroData.ano < 1950 || carroData.ano > anoAtual+1) {
+            throw new Error("Data invalida");
+        }
+        if(carroData.preco <= 0){
+            throw new Error("Preço deve ser maior que 0");
+        }
+        if(this.CarroRepository.existePlaca(carroData.placa) && cadastroAntigo.placa != carroData.placa) {
+            throw new Error("placa já cadastrada");
         }
         return this.CarroRepository.atualizarCarro(carroData)
     }

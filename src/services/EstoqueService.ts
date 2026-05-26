@@ -19,7 +19,7 @@ export class EstoqueService {
         return this.EstoqueRepository.listaEstoquePorId(idNumber)
     }
 
-    listaEstoquesIdCarro(id: string): Estoque | undefined {
+    listaEstoquesIdCarro(id: number): Estoque | undefined {
         if(!this.EstoqueRepository.listaEstoquePorIdCarro(id)){
              throw new Error("Nenhum registro encontrado");
         }
@@ -54,7 +54,7 @@ export class EstoqueService {
         return this.EstoqueRepository.atualizarEstoque(EstoqueData)
     }
 
-    deletaCarro(id_carro:string){
+    deletaCarro(id_carro:number){
         if(!this.EstoqueRepository.listaEstoquePorIdCarro(id_carro)){
              throw new Error("Estoque não encontrado");
         }

@@ -19,17 +19,21 @@ export class EstoqueRepository{
     listaEstoquePorId(id:number): Estoque | undefined{
         return this.EstoqueList.find(estoque=>estoque.id_estoque == id)
     }
+    listaEstoquePorIdCarro(id:string): Estoque | undefined{
+        return this.EstoqueList.find(estoque=>estoque.id_carro == id)
+    }
     cadastraEstoque(Estoque:Estoque){
         this.EstoqueList.push(Estoque)
     }
-    deletarEstoque(index:number){
+    deletarEstoque(id_carro:string){
+        const index:number = this.EstoqueList.findIndex(estoque=>estoque.id_carro == id_carro)
         this.EstoqueList.splice(index,1)
     }
     atualizarEstoque(EstoqueAtualizado:Estoque): Estoque{
-        const index:number = this.EstoqueList.findIndex(estoque=>estoque.id_carro == EstoqueAtualizado.id_carro)
+        const index:number = this.EstoqueList.findIndex(estoque=>estoque.id_estoque == EstoqueAtualizado.id_estoque)
         if(this.EstoqueList[index]){
             this.EstoqueList[index].quantidade = EstoqueAtualizado.quantidade ?? this.EstoqueList[index].quantidade
-            this.EstoqueList[index].localizacao = EstoqueAtualizado.localizacao ?? this.EstoqueList[index].localizacao
+            this.EstoqueList[index].localizacao_patio = EstoqueAtualizado.localizacao_patio ?? this.EstoqueList[index].localizacao_patio
         }
         return EstoqueAtualizado;
     }

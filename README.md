@@ -35,10 +35,10 @@ O sistema deve permitir o gerenciamento completo do cadastro de clientes, vended
 ### Estoque
 - [x] GET /estoque `Lista todos os registros de estoque`
 - [x] GET /estoque/:id `Retorna um registro de estoque pelo id`
-- [ ] GET /estoque/carro/:id_carro `Retorna o estoque de um carro específico`
+- [x] GET /estoque/carro/:id_carro `Retorna o estoque de um carro específico`
 - [x] POST /estoque `Cria um novo registro de estoque`
 - [x] PUT /estoque/:id `Atualiza quantidade ou localização`
-- [ ] DELETE /estoque/:id `Remove um registro de estoque`
+- [x] DELETE /estoque/:id `Remove um registro de estoque`
 
 ### Notas
 - [ ] GET /notas `Lista todas as notas fiscais`

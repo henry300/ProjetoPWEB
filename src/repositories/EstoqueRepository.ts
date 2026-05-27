@@ -23,13 +23,13 @@ export class EstoqueRepository{
         return this.EstoqueList.find(estoque=>estoque.id_estoque == id)
     }
     listaEstoquePorIdCarro(id:number): Estoque | undefined{
-        return this.EstoqueList.find(estoque=>estoque.id_carro == id)
+        return this.EstoqueList.find(estoque=>estoque.id_carro === id)
     }
     cadastraEstoque(Estoque:Estoque){
         this.EstoqueList.push(Estoque)
     }
-    deletarEstoque(id_carro:number){
-        const index:number = this.EstoqueList.findIndex(estoque=>estoque.id_carro == id_carro)
+    deletarEstoque(id:number){
+        const index:number = this.EstoqueList.findIndex(estoque=>estoque.id_estoque == id)
         this.EstoqueList.splice(index,1)
     }
     atualizarEstoque(EstoqueAtualizado:Estoque): Estoque{

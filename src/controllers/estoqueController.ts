@@ -43,10 +43,24 @@ export function atualizarEstoque(req: Request, res: Response){
     }
 }
 
-export function listarEstoquePorIdCarro(){
-    
+export function listarEstoquePorIdCarro(req: Request, res: Response){
+    const id = Number(req.params.id_carro)
+    try{
+        const estoque = estoqueService.listaEstoquesIdCarro(id)
+        res.status(200).json({quantidade:estoque})
+    }
+    catch(error:any){
+        res.status(400).json({message: error.message})
+    }
 }
 
-export function deletaEstoque(){
-    
+export function deletaEstoque(req: Request, res:Response){
+    const id = Number(req.params.id)
+    try{
+        const estoque = estoqueService.deletaCarro(id)
+        res.status(200).json({message:"Estoque deletado com sucesso",estoque})
+    }
+    catch(error:any){
+        res.status(400).json({message: error.message})
+    }
 }

@@ -21,11 +21,12 @@ export class EstoqueService {
         return this.EstoqueRepository.listaEstoquePorId(idNumber)
     }
 
-    listaEstoquesIdCarro(id: number): Estoque | undefined {
+    listaEstoquesIdCarro(id: number): number | undefined {
         if(!this.EstoqueRepository.listaEstoquePorIdCarro(id)){
              throw new Error("Nenhum registro encontrado");
         }
-        return this.EstoqueRepository.listaEstoquePorIdCarro(id)
+        const estoque = this.EstoqueRepository.listaEstoquePorIdCarro(id)
+        return estoque?.quantidade
     }
 
     cadastraEstoque(EstoqueData: any) {
@@ -62,9 +63,10 @@ export class EstoqueService {
         return this.EstoqueRepository.atualizarEstoque(EstoqueData)
     }
 
-    deletaCarro(id_carro:number){
-        if(!this.EstoqueRepository.listaEstoquePorIdCarro(id_carro)){
+    deletaCarro(id:number):void{
+        if(!this.EstoqueRepository.listaEstoquePorIdCarro(id)){
              throw new Error("Estoque não encontrado");
         }
+        this.EstoqueRepository.deletarEstoque(id)
     }
 }

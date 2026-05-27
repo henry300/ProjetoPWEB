@@ -19,6 +19,19 @@ export class VendedorRepository{
     listaVendedorPorId(id:number): Vendedor | undefined{
         return this.VendedorList.find(vendedor=>vendedor.id_vendedor == id)
     }
-    
+    CadastraVendedor(vendedor:Vendedor){
+        this.VendedorList.push(vendedor)
+    }
+    DeletarVendedor(index:number){
+        this.VendedorList.splice(index,1)
+    }
+    existeMatricula(matricula:string):boolean{
+        return this.VendedorList.some(vendedor => vendedor.matricula == matricula)
+    }
+    atualizaVendedor(vendedorAtualizado: Vendedor){
+        const index:number = this.VendedorList.findIndex(vendedor=>vendedor.id_vendedor == vendedorAtualizado.id_vendedor)
+        this.VendedorList[index] = vendedorAtualizado
+        return vendedorAtualizado;
+    }
 }
 

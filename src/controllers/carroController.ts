@@ -29,10 +29,10 @@ export function listarCarrosDisponiveis(req: Request, res: Response){
 export function cadastrarCarro(req: Request, res: Response){
     try{
         const novoCarro = carroService.cadastraCarro(req.body)
-        res.status(201).json({messagem:"Produto Criado com sucesso",novoCarro})
+        res.status(201).json({message:"Carro criado com sucesso",novoCarro})
     }
     catch(error:any){
-        res.status(400).json(error.message)
+        res.status(400).json({message: error.message})
     }
 }
 export function atualizarCarro(req: Request, res: Response){
@@ -43,7 +43,7 @@ export function atualizarCarro(req: Request, res: Response){
         res.status(200).json({message:"Carro atualizado com sucesso",carroAtualizado})
     }
     catch(error:any){
-        res.status(400).json(error.message)
+        res.status(400).json({message: error.message})
     }
 }
 export function deleteCarro(req: Request, res: Response){

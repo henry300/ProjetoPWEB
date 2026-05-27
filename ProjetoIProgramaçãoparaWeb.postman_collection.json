@@ -1,0 +1,292 @@
+{
+  "info": {
+    "_postman_id": "0cd0c44e-624d-4572-8506-04ec85c86ede",
+    "name": "Projeto I Programação para Web",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "42986995"
+  },
+  "item": [
+    {
+      "name": "Carro",
+      "item": [
+        {
+          "name": "Carro listar",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/carros",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "carros"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Carro listagem por id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/carros/1779747703400",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "carros",
+                "1779747703400"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Carro disponíveis",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/carros/disponiveis",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "carros",
+                "disponiveis"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Carro cadastro",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"marca\":\"Toyota\",\r\n   \"modelo\":\"Corolla\",\r\n   \"ano\":2024,\r\n   \"placa\":\"ABC -1434\",\r\n   \"preco\":90000.00,\r\n   \"cor\":\"Vermelho\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/carros",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "carros"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Carro atualizar",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n   \"marca\":\"Toyota\",\r\n   \"modelo\":\"Corolla\",\r\n   \"ano\":2024,\r\n   \"placa\":\"ABC -1234\",\r\n   \"preco\":110000.00,\r\n   \"cor\":\"Prata\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/carros/1779748502381",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "carros",
+                "1779748502381"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Carro excluir",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/carros/10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "carros",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Estoque",
+      "item": [
+        {
+          "name": "Estoque lista",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/estoque",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "estoque"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Estoque lista por id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/estoque10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "estoque10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Estoque lista por id carro",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/estoque/carro/10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "estoque",
+                "carro",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Estoque cadastrar",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id_carro\":1, \r\n    \"quantidade\":5,\r\n    \"localizacao_patio\":\"Galpão A-3\" ,\r\n    \"data_entrada\":\"2025-06-01\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/estoque",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "estoque"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Estoque atualizar",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id_carro\": 1, \r\n    \"quantidade\": 5, \r\n    \"localizacao_patio\": \" Galpão A-3\", \r\n    \"data_entrada\": \"2025 -06 -01\" \r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/carros/1779748502381",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "carros",
+                "1779748502381"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Estoque deletar",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/estoque/10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "estoque",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

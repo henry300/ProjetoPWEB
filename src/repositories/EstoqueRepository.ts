@@ -12,6 +12,9 @@ export class EstoqueRepository{
         }
         return this.instance
     }
+    existeEstoque(id:number): boolean{
+        return this.EstoqueList.some(estoque => estoque.id_carro === id)
+    }
 
     listaEstoque(): Estoque[]{
         return this.EstoqueList;

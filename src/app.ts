@@ -17,7 +17,7 @@ app.put("/carros/:id",atualizarCarro)
 app.delete("/carros/:id",deleteCarro)
 
 // Estoque
-app.get("/estoque ",listaEstoques)
+app.get("/estoque",listaEstoques)
 app.get("/estoque/carro/:id_carro",listarEstoquePorIdCarro)
 app.get("/estoque/:id",listarEstoquePorId)
 app.post("/estoque",cadastrarEstoque)

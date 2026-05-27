@@ -47,5 +47,5 @@ export function atualizarCarro(req: Request, res: Response){
     }
 }
 export function deleteCarro(req: Request, res: Response){
-
+    
 }

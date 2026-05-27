@@ -1,8 +1,10 @@
 import { Estoque } from "../models/Estoque"
+import { CarroRepository } from "../repositories/CarroRepository";
 import { EstoqueRepository } from "../repositories/EstoqueRepository"
 
 export class EstoqueService {
     EstoqueRepository: EstoqueRepository = EstoqueRepository.getInstance()
+    CarroRespository:CarroRepository = CarroRepository.getInstance();
 
     listaEstoques(): Estoque[] | number {
         if(this.EstoqueRepository.listaEstoque().length == 0){
@@ -31,6 +33,12 @@ export class EstoqueService {
         const anoAtual = dataAtual.getFullYear();
         if(!EstoqueData.id_carro || !EstoqueData.quantidade || !EstoqueData.localizacao_patio || !EstoqueData.data_entrada){
             throw new Error("Dados faltantes");
+        }
+        if(this.EstoqueRepository.existeEstoque(EstoqueData.id_carro)){
+            throw new Error("Carro já possuí um estoque ativo");
+        }
+        if(!this.CarroRespository.listaCarroPorId(EstoqueData.id_carro)){
+            throw new Error("Carro não encontrado");
         }
         if (EstoqueData.data_entrada < anoAtual) {
             throw new Error("Data invalida");

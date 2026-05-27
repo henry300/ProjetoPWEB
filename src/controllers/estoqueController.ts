@@ -25,10 +25,10 @@ export function listarEstoquePorId(req: Request, res: Response){
 export function cadastrarEstoque(req: Request, res: Response){
     try{
         const novoEstoque = estoqueService.cadastraEstoque(req.body)
-        res.status(201).json({messagem:"Estoque Criado com sucesso",novoEstoque})
+        res.status(201).json({message:"Estoque Criado com sucesso",novoEstoque})
     }
     catch(error:any){
-        res.status(400).json(error.message)
+        res.status(400).json({message: error.message})
     }
 }
 export function atualizarEstoque(req: Request, res: Response){
@@ -39,7 +39,7 @@ export function atualizarEstoque(req: Request, res: Response){
         res.status(200).json({message:"Estoque atualizado com sucesso",EstoqueAtualizado})
     }
     catch(error:any){
-        res.status(400).json(error.message)
+        res.status(400).json({message: error.message})
     }
 }
 

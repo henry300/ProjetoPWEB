@@ -33,11 +33,11 @@ O sistema deve permitir o gerenciamento completo do cadastro de clientes, vended
 - [x] PUT /carros/:id `Atualiza um carro existente`
 - [ ] DELETE /carros/:id `Remove um carro (sem estoque ou notas)`
 ### Estoque
-- [ ] GET /estoque `Lista todos os registros de estoque`
-- [ ] GET /estoque/:id `Retorna um registro de estoque pelo id`
+- [x] GET /estoque `Lista todos os registros de estoque`
+- [x] GET /estoque/:id `Retorna um registro de estoque pelo id`
 - [ ] GET /estoque/carro/:id_carro `Retorna o estoque de um carro específico`
-- [ ] POST /estoque `Cria um novo registro de estoque`
-- [ ] PUT /estoque/:id `Atualiza quantidade ou localização`
+- [x] POST /estoque `Cria um novo registro de estoque`
+- [x] PUT /estoque/:id `Atualiza quantidade ou localização`
 - [ ] DELETE /estoque/:id `Remove um registro de estoque`
 
 ### Notas

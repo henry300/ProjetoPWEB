@@ -1,34 +1,46 @@
 import { Cliente } from "../models/Cliente";
 
-const clientes: Cliente[] = [];
+export class ClienteRepository {
+    private static instance: ClienteRepository;
+    private clienteList: Cliente[] = [];
 
-export function listarClientes(): Cliente[] {
-    return clientes;
-}
+    private constructor() {}
 
-export function clientePorId(id: number): Cliente | undefined {
-    return clientes.find(c => c.id_cliente === id);
-}
+    public static getInstance(): ClienteRepository {
+        if (!this.instance) {
+            this.instance = new ClienteRepository();
+        }
+        return this.instance;
+    }
 
-export function clientePorCpf(cpf: string): Cliente | undefined {
-    return clientes.find(c => c.cpf === cpf);
-}
+    listaClientes(): Cliente[] {
+        return this.clienteList;
+    }
 
-export function adicionarCliente(cliente: Cliente): Cliente {
-    clientes.push(cliente);
-    return cliente;
-}
+    listaClientePorId(id: number): Cliente | undefined {
+        return this.clienteList.find(c => c.id_cliente === id);
+    }
 
-export function removerCliente(id: number): boolean {
-    const index = clientes.findIndex(c => c.id_cliente === id);
-    if (index === -1) return false;
-    clientes.splice(index, 1);
-    return true;
-}
+    existeCpf(cpf: string): boolean {
+        return this.clienteList.some(c => c.cpf === cpf);
+    }
 
-export function atualizarCliente(clienteAtualizado: Cliente): Cliente | undefined {
-    const index = clientes.findIndex(c => c.id_cliente === clienteAtualizado.id_cliente);
-    if (index === -1) return undefined;
-    clientes[index] = clienteAtualizado;
-    return clientes[index];
+    adicionaCliente(cliente: Cliente): Cliente {
+        this.clienteList.push(cliente);
+        return cliente;
+    }
+
+    atualizaCliente(clienteAtualizado: Cliente): Cliente | undefined {
+        const index = this.clienteList.findIndex(c => c.id_cliente === clienteAtualizado.id_cliente);
+        if (index === -1) return undefined;
+        this.clienteList[index] = clienteAtualizado;
+        return this.clienteList[index];
+    }
+
+    deletaCliente(id: number): boolean {
+        const index = this.clienteList.findIndex(c => c.id_cliente === id);
+        if (index === -1) return false;
+        this.clienteList.splice(index, 1);
+        return true;
+    }
 }

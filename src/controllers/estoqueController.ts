@@ -57,7 +57,7 @@ export function listarEstoquePorIdCarro(req: Request, res: Response){
 export function deletaEstoque(req: Request, res:Response){
     const id = Number(req.params.id)
     try{
-        const estoque = estoqueService.deletaCarro(id)
+        const estoque = estoqueService.deletarEstoque(id)
         res.status(200).json({message:"Estoque deletado com sucesso",estoque})
     }
     catch(error:any){

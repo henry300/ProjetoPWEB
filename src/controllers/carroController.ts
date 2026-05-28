@@ -23,7 +23,12 @@ export function listarCarroPorId(req: Request, res: Response){
 }
 
 export function listarCarrosDisponiveis(req: Request, res: Response){
-    
+    try{
+        res.status(200).json(carroService.listaCarrosDisponiveis())
+    }
+    catch(error: any){
+        res.status(404).json({message: error.message})
+    }
 }
 
 export function cadastrarCarro(req: Request, res: Response){

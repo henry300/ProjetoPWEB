@@ -1,8 +1,10 @@
 import { Carro } from "../models/Carro"
 import { CarroRepository } from "../repositories/CarroRepository"
+import { EstoqueRepository } from "../repositories/EstoqueRepository"
 
 export class CarroService {
     CarroRepository: CarroRepository = CarroRepository.getInstance()
+    EstoqueRepository: EstoqueRepository = EstoqueRepository.getInstance()
 
     listaCarros(): Carro[] | number {
         if(this.CarroRepository.listaCarros().length == 0){
@@ -17,6 +19,14 @@ export class CarroService {
              throw new Error("Nenhum registro encontrado");
         }
         return this.CarroRepository.listaCarroPorId(idNumber)
+    }
+    listaCarrosDisponiveis(): Carro []{
+        const carros = this.CarroRepository.listaCarros()
+        const carrosDisponiveis = carros.filter(carro=>this.EstoqueRepository.listaEstoquePorIdCarro(carro.id_carro)?.quantidade != 0)
+        if(carrosDisponiveis.length == 0){
+            throw new Error("Nenhum registro encontrado");
+        }
+        return carrosDisponiveis
     }
     cadastraCarro(carroData: any) {
         const dataAtual = new Date();

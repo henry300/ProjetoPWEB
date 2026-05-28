@@ -47,15 +47,21 @@ export class EstoqueService {
         if(EstoqueData.quantidade < 0){
             throw new Error("Quantidade deve ser igual ou maior que 0");
         }
-        const novoEstoque = new Estoque(EstoqueData.id_carro, EstoqueData.quantidade, EstoqueData.localizacao,EstoqueData.data_entrada)
+        const novoEstoque = new Estoque(EstoqueData.id_carro, EstoqueData.quantidade, EstoqueData.localizacao_patio,EstoqueData.data_entrada)
         this.EstoqueRepository.cadastraEstoque(novoEstoque)
         return novoEstoque
+    }
+    listaEstoquePorIdCarro(id:number){
+        return this.EstoqueRepository.listaEstoquePorIdCarro(id)
     }
 
     atualizaEstoque(EstoqueData: Estoque,id_estoque:number){
         EstoqueData.id_estoque = id_estoque;
-        if(!EstoqueData.id_carro || !EstoqueData.quantidade || !EstoqueData.localizacao_patio || !EstoqueData.data_entrada){
+        if(!EstoqueData.id_carro || EstoqueData.quantidade == undefined || !EstoqueData.localizacao_patio || !EstoqueData.data_entrada){
             throw new Error("Dados faltantes");
+        }
+        if(EstoqueData.quantidade < 0){
+            throw new Error("Quantidade não pode ser negativo");
         }
         if(!this.EstoqueRepository.listaEstoquePorId(EstoqueData.id_estoque)){
             throw new Error("Estoque não encontrado");
@@ -63,10 +69,13 @@ export class EstoqueService {
         return this.EstoqueRepository.atualizarEstoque(EstoqueData)
     }
 
-    deletaCarro(id:number):void{
+    deletarEstoque(id:number):void{
         if(!this.EstoqueRepository.listaEstoquePorIdCarro(id)){
              throw new Error("Estoque não encontrado");
         }
         this.EstoqueRepository.deletarEstoque(id)
+    }
+    existeEstoque(id_carro:number){
+        return this.EstoqueRepository.existeEstoque(id_carro)
     }
 }

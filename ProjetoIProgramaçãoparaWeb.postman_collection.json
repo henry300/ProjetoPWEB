@@ -287,6 +287,77 @@
           "response": []
         }
       ]
+    },
+    {
+      "name": "Notas Fiscais",
+      "item": [
+        {
+          "name": "Notas fiscais listar",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/notas",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "notas"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Notas fiscais listar Id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Notas fiscais Emitir",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"numero_nota\":\"NF-2025-0001\",\r\n    \"data_emissao\":\"2025 -06 -10\", \r\n    \"valor_total\":110000.00, \r\n    \"id_cliente\": 1 ,\r\n    \"id_vendedor\":2,\r\n    \"id_carro\":3\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/notas",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "notas"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }

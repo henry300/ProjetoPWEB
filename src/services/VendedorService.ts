@@ -1,4 +1,3 @@
-import { error } from "node:console";
 import { Vendedor } from "../models/vendedor";
 import { VendedorRepository } from "../repositories/VendedorRepository";
 
@@ -18,4 +17,19 @@ export class VendedorService{
         }
         return this.Repository.listaVendedorPorId(idNumber)
     }
+    cadastraVendedor(vendedorData:any){
+        const dataAtual = new Date()
+        const anoAtual = dataAtual.getFullYear();
+        if(!vendedorData.nome || !vendedorData.matricula || vendedorData.comissao_percentual == undefined ){
+            throw new Error ("Dados Faltantes");
+        }
+        if(this.Repository.existeMatricula(vendedorData.matricula)){
+            throw new Error ("Matricula já cadastrada");
+        }
+        if(vendedorData.comissao_percentual < 0 || vendedorData.comissao_percentual > 30){
+            throw new Error ("Comissão inválida");
+        }
+
+    }
+
 }

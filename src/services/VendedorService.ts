@@ -17,18 +17,36 @@ export class VendedorService{
         }
         return this.Repository.listaVendedorPorId(idNumber)
     }
-    cadastraVendedor(vendedorData:any){
-        const dataAtual = new Date()
-        const anoAtual = dataAtual.getFullYear();
+    CadastraVendedor(vendedorData:any){
         if(!vendedorData.nome || !vendedorData.matricula || vendedorData.comissao_percentual == undefined ){
             throw new Error ("Dados Faltantes");
         }
         if(this.Repository.existeMatricula(vendedorData.matricula)){
-            throw new Error ("Matricula já cadastrada");
+            throw new Error ("Matrícula já cadastrada");
         }
         if(vendedorData.comissao_percentual < 0 || vendedorData.comissao_percentual > 30){
             throw new Error ("Comissão inválida");
         }
+        const novoVendedor = new Vendedor(vendedorData.nome, vendedorData.matricula, vendedorData.comissao_percentual)
+        this.Repository.CadastraVendedor(novoVendedor)
+        return novoVendedor
+    }
+    AtualizaVendedor(vendedorData: Vendedor, id_vendedor:number){
+        vendedorData.id_vendedor = id_vendedor;
+        const cadastroAnterior = this.Repository.listaVendedorPorId(id_vendedor)
+        if(!cadastroAnterior){
+            throw new Error ("Vendedor não encontrado");
+        }
+        if(!vendedorData.nome || !vendedorData.matricula || vendedorData.comissao_percentual == undefined){
+            throw new Error ("Dados faltantes");
+        }
+        if(this.Repository.existeMatricula(vendedorData.matricula) && cadastroAnterior?.matricula != vendedorData.matricula){
+            throw new Error ("Matrícula já cadastrada")
+        }
+        if(vendedorData.comissao_percentual < 0 || vendedorData.comissao_percentual > 30){
+            throw new Error ("Comissão inválida");
+        }
+        return this.Repository.atualizaVendedor(vendedorData)
 
     }
 

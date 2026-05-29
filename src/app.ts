@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import { atualizarCarro, cadastrarCarro, deleteCarro, listaCarros, listarCarroPorId, listarCarrosDisponiveis } from "./controllers/carroController";
 import { atualizarEstoque, cadastrarEstoque, deletaEstoque, listaEstoques, listarEstoquePorId, listarEstoquePorIdCarro } from "./controllers/estoqueController";
+import { criarNotaFiscal, listarNotaFiscal } from "./controllers/notaFiscalController";
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
@@ -23,3 +24,8 @@ app.get("/estoque/:id",listarEstoquePorId)
 app.post("/estoque",cadastrarEstoque)
 app.put("/estoque/:id",atualizarEstoque)
 app.delete("/estoque/:id",deletaEstoque)
+
+// Nota fiscal
+app.get("/notas/",listarNotaFiscal)
+app.get("/notas/:id",listarCarroPorId)
+app.post("/notas",criarNotaFiscal)

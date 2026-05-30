@@ -1,9 +1,10 @@
 {
   "info": {
-    "_postman_id": "0cd0c44e-624d-4572-8506-04ec85c86ede",
+    "_postman_id": "187a5f58-f041-4bf0-b18d-85857d6ff9ad",
     "name": "Projeto I Programação para Web",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "42986995"
+    "_exporter_id": "54272969",
+    "_collection_link": "https://go.postman.co/collection/54272969-187a5f58-f041-4bf0-b18d-85857d6ff9ad?source=collection_link"
   },
   "item": [
     {
@@ -354,6 +355,131 @@
               "port": "3000",
               "path": [
                 "notas"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Vendedor",
+      "item": [
+        {
+          "name": "Vendedor Listar",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/vendedores",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "vendedores"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Vendedor Cadastro",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"Claudionor\",\r\n    \"matricula\": \"ADS001\",\r\n    \"comissao_percentual\": 10\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/vendedores",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "vendedores"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Vendedor Listagem por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/vendedores/1780170318345",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "vendedores",
+                "1780170318345"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Vendedor Atualizar",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"Claudionor Cosme\",\r\n    \"matricula\": \"ADS001\",\r\n    \"comissao_percentual\": \"15\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/vendedores/1780170318345",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "vendedores",
+                "1780170318345"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Vendedor Remover",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"Claudionor Cosme\",\r\n    \"matricula\": \"ADS001\",\r\n    \"comissao_percentual\": \"15\"\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/vendedores/1780172406904",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "vendedores",
+                "1780172406904"
               ]
             }
           },

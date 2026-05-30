@@ -6,6 +6,7 @@ O sistema deve permitir o gerenciamento completo do cadastro de clientes, vended
 ## Funções
 - [ ] Cadastro de Clientes
 - [ ] Cadastro de Carros
+- [ ] Cadastro de Vendedores
 - [ ] Controle de Estoque
 - [ ] Emissão de Nota Fiscal
 - [ ] Consultas e Listagens
@@ -19,12 +20,12 @@ O sistema deve permitir o gerenciamento completo do cadastro de clientes, vended
 - [ ] DELETE /clientes/:id `Remove um cliente (somente se não possuir notas fiscais)`
 - [ ] GET /clientes/notas/:id `Lista todas as notas fiscais de um cliente`
 ### Vendedores
-- [ ] GET     /vendedores `Lista todos os vendedores`
-- [ ] GET     /vendedores/:id `Retorna um vendedor pelo id`
-- [ ] POST    /vendedores `Cadastra um novo vendedor`
-- [ ] PUT     /vendedores/:id `Atualiza um vendedor existente`
-- [ ] DELETE  /vendedores/:id `Remove um vendedor (sem notas vinculadas)`
-- [ ] GET     /vendedores/notas/:id `Lista todas as notas fiscais de um vendedor`
+- [X] GET     /vendedores `Lista todos os vendedores`
+- [X] GET     /vendedores/:id `Retorna um vendedor pelo id`
+- [X] POST    /vendedores `Cadastra um novo vendedor`
+- [X] PUT     /vendedores/:id `Atualiza um vendedor existente`
+- [X] DELETE  /vendedores/:id `Remove um vendedor (sem notas vinculadas)`
+- [X] GET     /vendedores/notas/:id `Lista todas as notas fiscais de um vendedor`
 ### Carros
 - [x] GET /carros `Lista todos os carros`
 - [x] GET /carros/:id `Retorna um carro pelo id`

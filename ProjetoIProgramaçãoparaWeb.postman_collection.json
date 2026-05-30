@@ -391,7 +391,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"nome\": \"Claudionor\",\r\n    \"matricula\": \"ADS001\",\r\n    \"comissao_percentual\": 10\r\n}",
+              "raw": "{\r\n    \"nome\": \"Bruno\",\r\n    \"matricula\": \"ADS002\",\r\n    \"comissao_percentual\": 14\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -418,7 +418,7 @@
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/vendedores/1780170318345",
+              "raw": "http://localhost:3000/vendedores/1780177830826",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -426,7 +426,7 @@
               "port": "3000",
               "path": [
                 "vendedores",
-                "1780170318345"
+                "1780177830826"
               ]
             }
           },
@@ -439,7 +439,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"nome\": \"Claudionor Cosme\",\r\n    \"matricula\": \"ADS001\",\r\n    \"comissao_percentual\": \"15\"\r\n}",
+              "raw": "{\r\n    \"nome\": \"Claudio\",\r\n    \"matricula\": \"ADS002\",\r\n    \"comissao_percentual\": \"20\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -447,7 +447,7 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3000/vendedores/1780170318345",
+              "raw": "http://localhost:3000/vendedores/1780177830826",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -455,7 +455,7 @@
               "port": "3000",
               "path": [
                 "vendedores",
-                "1780170318345"
+                "1780177830826"
               ]
             }
           },
@@ -471,7 +471,7 @@
               "raw": "{\r\n    \"nome\": \"Claudionor Cosme\",\r\n    \"matricula\": \"ADS001\",\r\n    \"comissao_percentual\": \"15\"\r\n}"
             },
             "url": {
-              "raw": "http://localhost:3000/vendedores/1780172406904",
+              "raw": "http://localhost:3000/vendedores/1780172406905",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -479,7 +479,35 @@
               "port": "3000",
               "path": [
                 "vendedores",
-                "1780172406904"
+                "1780172406905"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Vendedor Listar Notas fiscais Associadas",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"Claudionor\",\r\n    \"matricula\": \"ADS001\",\r\n    \"comissao_percentual\": 10\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/vendedores/1780177830826/notas-fiscais",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "vendedores",
+                "1780177830826",
+                "notas-fiscais"
               ]
             }
           },

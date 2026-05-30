@@ -62,5 +62,12 @@ export class VendedorService{
         this.VendedorRepository.DeletarVendedor(id)
         return {message: "Vendedor deletado com sucesso"}
     }
+    listaNotasPorVendedor(id:number){
+        const vendedor = this.VendedorRepository.listaVendedorPorId(id)
+        if(!vendedor){
+            throw new Error("Vendedor não encontrado")
+        }
+        return this.NotaFiscalRepository.listaNotasPorVendedor(id)
+    }
 
 }

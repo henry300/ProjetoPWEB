@@ -50,6 +50,15 @@ export function deletarVendedor(req: Request, res: Response){
         res.status(400).json({message: error.message})
     }
 }
+export function listaNotasPorVendedor(req: Request, res: Response){
+    const id = Number(req.params.id)
+    try{
+        res.status(200).json(vendedorService.listaNotasPorVendedor(id))
+    }
+    catch(error:any){
+        res.status(404).json({message: error.message})
+    }
+}
 
 
 

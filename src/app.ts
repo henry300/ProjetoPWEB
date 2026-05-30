@@ -2,7 +2,7 @@ import express, { Request, Response } from "express";
 import { atualizarCarro, cadastrarCarro, deleteCarro, listaCarros, listarCarroPorId, listarCarrosDisponiveis } from "./controllers/carroController";
 import { atualizarEstoque, cadastrarEstoque, deletaEstoque, listaEstoques, listarEstoquePorId, listarEstoquePorIdCarro } from "./controllers/estoqueController";
 import { criarNotaFiscal, listarNotaFiscal } from "./controllers/notaFiscalController";
-import { AtualizaVendedor, CadastraVendedor, deletarVendedor, listaVendedor, listaVendedorPorId } from "./controllers/vendedorController";
+import { AtualizaVendedor, CadastraVendedor, deletarVendedor, listaNotasPorVendedor, listaVendedor, listaVendedorPorId } from "./controllers/vendedorController";
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
@@ -37,3 +37,4 @@ app.get("/vendedores/:id",listaVendedorPorId)
 app.post("/vendedores",CadastraVendedor)
 app.put("/vendedores/:id",AtualizaVendedor)
 app.delete("/vendedores/:id",deletarVendedor)
+app.get("/vendedores", listaNotasPorVendedor)

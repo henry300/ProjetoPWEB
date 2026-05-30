@@ -73,10 +73,6 @@ export class CarroService {
     // deletaCarro(){
 
     // }
-
-    // listaCarrosDisponiveis():Carro{
-    //     return
-    // }
 }
 
 

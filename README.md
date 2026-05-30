@@ -41,9 +41,9 @@ O sistema deve permitir o gerenciamento completo do cadastro de clientes, vended
 - [x] DELETE /estoque/:id `Remove um registro de estoque`
 
 ### Notas
-- [ ] GET /notas `Lista todas as notas fiscais`
-- [ ] GET /notas/:id `Retorna uma nota fiscal pelo id`
-- [ ] POST /notas `Emite uma nova nota fiscal (decrementa estoque)`
+- [x] GET /notas `Lista todas as notas fiscais`
+- [x] GET /notas/:id `Retorna uma nota fiscal pelo id`
+- [x] POST /notas `Emite uma nova nota fiscal (decrementa estoque)`
 
 
 

@@ -22,8 +22,9 @@ export class VendedorRepository{
     CadastraVendedor(vendedor:Vendedor){
         this.VendedorList.push(vendedor)
     }
-    DeletarVendedor(index:number){
-        this.VendedorList.splice(index,1)
+    DeletarVendedor(id: number){
+        const indice = this.VendedorList.findIndex(vendedor => vendedor.id_vendedor == id)
+        this.VendedorList.splice(indice, 1)
     }
     existeMatricula(matricula:string):boolean{
         return this.VendedorList.some(vendedor => vendedor.matricula == matricula)

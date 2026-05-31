@@ -1,10 +1,9 @@
 {
   "info": {
-    "_postman_id": "187a5f58-f041-4bf0-b18d-85857d6ff9ad",
+    "_postman_id": "0cd0c44e-624d-4572-8506-04ec85c86ede",
     "name": "Projeto I Programação para Web",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "54272969",
-    "_collection_link": "https://go.postman.co/collection/54272969-187a5f58-f041-4bf0-b18d-85857d6ff9ad?source=collection_link"
+    "_exporter_id": "42986995"
   },
   "item": [
     {
@@ -76,7 +75,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n   \"marca\":\"Toyota\",\r\n   \"modelo\":\"Corolla\",\r\n   \"ano\":2024,\r\n   \"placa\":\"ABC -1434\",\r\n   \"preco\":90000.00,\r\n   \"cor\":\"Vermelho\"\r\n}",
+              "raw": "{\r\n   \"marca\":\"Toyota\",\r\n   \"modelo\":\"Corolla\",\r\n   \"ano\":2024,\r\n   \"placa\":\"ABC-1434\",\r\n   \"preco\":90000.00,\r\n   \"cor\":\"Vermelho\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -104,7 +103,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n   \"marca\":\"Toyota\",\r\n   \"modelo\":\"Corolla\",\r\n   \"ano\":2024,\r\n   \"placa\":\"ABC -1234\",\r\n   \"preco\":110000.00,\r\n   \"cor\":\"Prata\"\r\n}",
+              "raw": "{\r\n   \"marca\":\"Toyota\",\r\n   \"modelo\":\"Corolla\",\r\n   \"ano\":2024,\r\n   \"placa\":\"ABC-1234\",\r\n   \"preco\":110000.00,\r\n   \"cor\":\"Prata\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -508,6 +507,147 @@
                 "vendedores",
                 "1780177830826",
                 "notas-fiscais"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Cliente",
+      "item": [
+        {
+          "name": "Cliente listar",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/clientes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cliente listar por id",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/clientes/1780237555846",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "clientes",
+                "1780237555846"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Listar notas por cliente",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/clientes/notas/10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "clientes",
+                "notas",
+                "10"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cadastrar Cliente",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"João da Silva\" , \r\n    \"cpf\": \"123.456.789-00\" , \r\n    \"telefone\": \"(11) 99999-0000\",\r\n    \"email\": \"joao@email.com \",\r\n    \"cidade\": \"São Paulo\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/clientes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Deletar cliente",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/clientes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "clientes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cliente atualizar",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"nome\": \"João da Silva\",\r\n    \"cpf\": \"123.456.789-00\",\r\n    \"telefone\": \"(11) 99999-0000\",\r\n    \"email\": \"joao@email.com \",\r\n    \"cidade\": \"São Paulo\"\r\n}\r\n",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/clientes/1780237555846",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "clientes",
+                "1780237555846"
               ]
             }
           },

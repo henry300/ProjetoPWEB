@@ -4,12 +4,12 @@ Objetivo Desenvolver uma API REST para gestão de uma concessionária de veícul
 O sistema deve permitir o gerenciamento completo do cadastro de clientes, vendedores e carros, o controle de estoque e a emissão de notas fiscais de venda, seguindo rigorosamente as regras de negócio estabelecidas.
 
 ## Funções
-- [ ] Cadastro de Clientes
-- [ ] Cadastro de Carros
-- [ ] Cadastro de Vendedores
-- [ ] Controle de Estoque
-- [ ] Emissão de Nota Fiscal
-- [ ] Consultas e Listagens
+- [x] Cadastro de Clientes
+- [x] Cadastro de Carros
+- [x] Cadastro de Vendedores
+- [x] Controle de Estoque
+- [x] Emissão de Nota Fiscal
+- [x] Consultas e Listagens
 
 ## Rotas esperadas
 ### clientes
@@ -18,7 +18,7 @@ O sistema deve permitir o gerenciamento completo do cadastro de clientes, vended
 - [x] POST /clientes `Cadastra um novo cliente`
 - [x] PUT /clientes/:id `Atualiza os dados de um cliente existente`
 - [x] DELETE /clientes/:id `Remove um cliente (somente se não possuir notas fiscais)`
-- [ ] GET /clientes/notas/:id `Lista todas as notas fiscais de um cliente`
+- [x] GET /clientes/notas/:id `Lista todas as notas fiscais de um cliente`
 ### Vendedores
 - [X] GET     /vendedores `Lista todos os vendedores`
 - [X] GET     /vendedores/:id `Retorna um vendedor pelo id`

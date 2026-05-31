@@ -51,15 +51,15 @@ export function deletarcliente(req: Request, res: Response){
         res.status(400).json({message: error.message})
     }
 }
-// export function listaNotasPorcliente(req: Request, res: Response){
-//     const id:number = Number(req.params.id)
-//     try{
-//         res.status(200).json(clienteService.lista(id))
-//     }
-//     catch(error:any){
-//         res.status(404).json({message: error.message})
-//     }
-// }
+export function listaNotasPorCliente(req: Request, res: Response){
+    const id:number = Number(req.params.id)
+    try{
+        res.status(200).json(clienteService.listaNotasPorCliente(id))
+    }
+    catch(error:any){
+        res.status(404).json({message: error.message})
+    }
+}
 
 
 

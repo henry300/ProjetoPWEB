@@ -63,11 +63,12 @@ export class VendedorService{
         return {message: "Vendedor deletado com sucesso"}
     }
     listaNotasPorVendedor(id:number){
-        const vendedor = this.VendedorRepository.listaVendedorPorId(id)
-        if(!vendedor){
+        if(! this.VendedorRepository.listaVendedorPorId(id)){
             throw new Error("Vendedor não encontrado")
+        }
+        if(this.NotaFiscalRepository.listaNotasPorVendedor(id).length === 0){
+            throw new Error("Não existe notas para esse cliente")
         }
         return this.NotaFiscalRepository.listaNotasPorVendedor(id)
     }
-
 }

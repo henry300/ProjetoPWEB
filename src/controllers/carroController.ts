@@ -52,5 +52,12 @@ export function atualizarCarro(req: Request, res: Response){
     }
 }
 export function deleteCarro(req: Request, res: Response){
-    
+    const id = Number(req.params.id)
+    try{
+        const carroDeletado = carroService.deletaCarro(id)
+        res.status(200).json({message:"Carro deletado com sucesso",carroDeletado})
+    }
+    catch(error:any){
+        res.status(400).json({message: error.message})
+    }
 }

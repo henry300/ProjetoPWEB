@@ -22,7 +22,8 @@ export class CarroRepository{
     cadastraCarro(carro:Carro){
         this.CarroList.push(carro)
     }
-    deletarCarro(index:number){
+    deletarCarro(id_carro:number){
+        const index:number = this.CarroList.findIndex(carro=>carro.id_carro == id_carro)
         this.CarroList.splice(index,1)
     }
     existePlaca(placa:string):boolean{

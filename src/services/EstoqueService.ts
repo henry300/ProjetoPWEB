@@ -70,7 +70,7 @@ export class EstoqueService {
     }
 
     deletarEstoque(id:number):void{
-        if(!this.EstoqueRepository.listaEstoquePorIdCarro(id)){
+        if(!this.EstoqueRepository.listaEstoquePorId(id)){
              throw new Error("Estoque não encontrado");
         }
         this.EstoqueRepository.deletarEstoque(id)

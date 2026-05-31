@@ -1,10 +1,12 @@
 import { Carro } from "../models/Carro"
 import { CarroRepository } from "../repositories/CarroRepository"
 import { EstoqueRepository } from "../repositories/EstoqueRepository"
+import { NotaFiscalRepository } from "../repositories/NotaFiscalRepository"
 
 export class CarroService {
     CarroRepository: CarroRepository = CarroRepository.getInstance()
     EstoqueRepository: EstoqueRepository = EstoqueRepository.getInstance()
+    NotaFiscalRepository: NotaFiscalRepository = NotaFiscalRepository.getInstance()
 
     listaCarros(): Carro[] | number {
         if(this.CarroRepository.listaCarros().length == 0){
@@ -70,9 +72,20 @@ export class CarroService {
         return this.CarroRepository.atualizarCarro(carroData)
     }
 
-    // deletaCarro(){
-
-    // }
+    deletaCarro(id:number){
+        if(!this.CarroRepository.listaCarroPorId(id)){
+            throw new Error("registro não encontrado");
+        }
+        if(this.EstoqueRepository.listaEstoquePorIdCarro(id)){
+            throw new Error("não foi possível apagar, há estoque deste carro");
+        }
+        if(this.NotaFiscalRepository.existeNotaPorCarro(id)){
+            throw new Error("não foi possível apagar, Existem notas emitidas com esse carro");
+        }
+        const carro = this.CarroRepository.listaCarroPorId(id)
+        this.CarroRepository.deletarCarro(id)
+        return carro
+    }
 }
 
 

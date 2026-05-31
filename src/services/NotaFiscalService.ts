@@ -4,7 +4,6 @@ import { ClienteRepository } from "../repositories/clienteRepository"
 import { VendedorRepository } from "../repositories/VendedorRepository"
 import { CarroRepository } from "../repositories/CarroRepository"
 import { EstoqueRepository } from "../repositories/EstoqueRepository"
-import { Estoque } from "../models/Estoque";
 
 
 export class NotaFiscalService{

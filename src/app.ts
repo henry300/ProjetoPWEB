@@ -3,6 +3,7 @@ import { atualizarCarro, cadastrarCarro, deleteCarro, listaCarros, listarCarroPo
 import { atualizarEstoque, cadastrarEstoque, deletaEstoque, listaEstoques, listarEstoquePorId, listarEstoquePorIdCarro } from "./controllers/estoqueController";
 import { criarNotaFiscal, listarNotaFiscal } from "./controllers/notaFiscalController";
 import { AtualizaVendedor, CadastraVendedor, deletarVendedor, listaNotasPorVendedor, listaVendedor, listaVendedorPorId } from "./controllers/vendedorController";
+import { Atualizacliente, Cadastracliente, deletarcliente, listacliente, listaclientePorId } from "./controllers/clienteControler";
 
 const app = express();
 const PORT = process.env.PORT ?? 3000;
@@ -38,3 +39,11 @@ app.post("/vendedores",CadastraVendedor)
 app.put("/vendedores/:id",AtualizaVendedor)
 app.delete("/vendedores/:id",deletarVendedor)
 app.get("/vendedores/:id/notas-fiscais", listaNotasPorVendedor)
+
+//app.get("/vendedores",listaVendedor)
+app.get("/clientes/:id",listacliente)
+app.get("/clientes",listaclientePorId)
+app.post("/clientes",Cadastracliente)
+app.put("/clientes/:id",Atualizacliente)
+app.delete("/vendedores/:id",deletarcliente)
+// app.get("/clientes/notas-fiscais/id")

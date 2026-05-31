@@ -13,11 +13,11 @@ O sistema deve permitir o gerenciamento completo do cadastro de clientes, vended
 
 ## Rotas esperadas
 ### clientes
-- [ ] GET /clientes `Lista todos os clientes cadastrados`
-- [ ] GET /clientes/:id `Retorna os dados de um cliente pelo id`.
-- [ ] POST /clientes `Cadastra um novo cliente`
-- [ ] PUT /clientes/:id `Atualiza os dados de um cliente existente`
-- [ ] DELETE /clientes/:id `Remove um cliente (somente se não possuir notas fiscais)`
+- [x] GET /clientes `Lista todos os clientes cadastrados`
+- [x] GET /clientes/:id `Retorna os dados de um cliente pelo id`.
+- [x] POST /clientes `Cadastra um novo cliente`
+- [x] PUT /clientes/:id `Atualiza os dados de um cliente existente`
+- [x] DELETE /clientes/:id `Remove um cliente (somente se não possuir notas fiscais)`
 - [ ] GET /clientes/notas/:id `Lista todas as notas fiscais de um cliente`
 ### Vendedores
 - [X] GET     /vendedores `Lista todos os vendedores`
@@ -32,7 +32,7 @@ O sistema deve permitir o gerenciamento completo do cadastro de clientes, vended
 - [x] GET /carros/disponiveis `Lista carros com estoque > 0`
 - [x] POST /carros `Cadastra um novo carro`
 - [x] PUT /carros/:id `Atualiza um carro existente`
-- [ ] DELETE /carros/:id `Remove um carro (sem estoque ou notas)`
+- [x] DELETE /carros/:id `Remove um carro (sem estoque ou notas)`
 ### Estoque
 - [x] GET /estoque `Lista todos os registros de estoque`
 - [x] GET /estoque/:id `Retorna um registro de estoque pelo id`

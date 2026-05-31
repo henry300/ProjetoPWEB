@@ -1,6 +1,7 @@
 import { Estoque } from "../models/Estoque"
 import { CarroRepository } from "../repositories/CarroRepository";
 import { EstoqueRepository } from "../repositories/EstoqueRepository"
+import { ErrorApp } from "../models/Error";
 
 export class EstoqueService {
     EstoqueRepository: EstoqueRepository = EstoqueRepository.getInstance()
@@ -8,7 +9,7 @@ export class EstoqueService {
 
     listaEstoques(): Estoque[] | number {
         if (this.EstoqueRepository.listaEstoque().length == 0) {
-            throw new Error("Nenhum registro encontrado")
+            throw new ErrorApp(404,"Nenhum registro encontrado")
         }
         return this.EstoqueRepository.listaEstoque()
     }
@@ -16,14 +17,14 @@ export class EstoqueService {
     listaEstoquesId(id: any): Estoque | undefined {
         const idNumber: number = parseInt(id, 10);
         if (!this.EstoqueRepository.listaEstoquePorId(idNumber)) {
-            throw new Error("Nenhum registro encontrado");
+            throw new ErrorApp(404,"Nenhum registro encontrado");
         }
         return this.EstoqueRepository.listaEstoquePorId(idNumber)
     }
 
     listaEstoquesIdCarro(id: number): number | undefined {
         if (!this.EstoqueRepository.listaEstoquePorIdCarro(id)) {
-            throw new Error("Nenhum registro encontrado");
+            throw new ErrorApp(404,"Nenhum registro encontrado");
         }
         const estoque = this.EstoqueRepository.listaEstoquePorIdCarro(id)
         return estoque?.quantidade
@@ -33,19 +34,19 @@ export class EstoqueService {
         const dataAtual = new Date();
         const anoAtual = dataAtual.getFullYear();
         if (!EstoqueData.id_carro || !EstoqueData.quantidade || !EstoqueData.localizacao_patio || !EstoqueData.data_entrada) {
-            throw new Error("Dados faltantes");
+            throw new ErrorApp(400,"Dados faltantes");
         }
         if (this.EstoqueRepository.existeEstoque(EstoqueData.id_carro)) {
-            throw new Error("Carro já possuí um estoque ativo");
+            throw new ErrorApp(409,"Carro já possuí um estoque ativo");
         }
         if (!this.CarroRespository.listaCarroPorId(EstoqueData.id_carro)) {
-            throw new Error("Carro não encontrado");
+            throw new ErrorApp(404,"Carro não encontrado");
         }
         if (EstoqueData.data_entrada < anoAtual) {
-            throw new Error("Data invalida");
+            throw new ErrorApp(409,"Data invalida");
         }
         if (EstoqueData.quantidade < 0) {
-            throw new Error("Quantidade deve ser igual ou maior que 0");
+            throw new ErrorApp(422,"Quantidade deve ser igual ou maior que 0");
         }
         const novoEstoque = new Estoque(EstoqueData.id_carro, EstoqueData.quantidade, EstoqueData.localizacao_patio, EstoqueData.data_entrada)
         this.EstoqueRepository.cadastraEstoque(novoEstoque)
@@ -59,20 +60,20 @@ export class EstoqueService {
     atualizaEstoque(EstoqueData: Estoque, id_estoque: number) {
         EstoqueData.id_estoque = id_estoque;
         if (!EstoqueData.id_carro || EstoqueData.quantidade == undefined || !EstoqueData.localizacao_patio || !EstoqueData.data_entrada) {
-            throw new Error("Dados faltantes");
+            throw new ErrorApp(400,"Dados faltantes");
         }
         if (EstoqueData.quantidade < 0) {
-            throw new Error("Quantidade não pode ser negativo");
+            throw new ErrorApp(422,"Quantidade não pode ser negativo");
         }
         if (!this.EstoqueRepository.listaEstoquePorId(EstoqueData.id_estoque)) {
-            throw new Error("Estoque não encontrado");
+            throw new ErrorApp(404,"Estoque não encontrado");
         }
         return this.EstoqueRepository.atualizarEstoque(EstoqueData)
     }
 
     deletarEstoque(id: number): void {
         if (!this.EstoqueRepository.listaEstoquePorId(id)) {
-            throw new Error("Estoque não encontrado");
+            throw new ErrorApp(404,"Estoque não encontrado");
         }
         this.EstoqueRepository.deletarEstoque(id)
     }

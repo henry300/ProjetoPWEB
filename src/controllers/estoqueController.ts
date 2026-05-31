@@ -8,7 +8,7 @@ export function listaEstoques(req: Request, res: Response) {
         res.status(200).json(estoqueService.listaEstoques())
     }
     catch (error: any) {
-        res.status(404).json({ message: error.message })
+        res.status(error.status).json({ message: error.message })
     }
 }
 
@@ -18,7 +18,7 @@ export function listarEstoquePorId(req: Request, res: Response) {
         res.status(200).json(estoqueService.listaEstoquesId(id))
     }
     catch (error: any) {
-        res.status(404).json({ message: error.message })
+        res.status(error.status).json({ message: error.message })
     }
 }
 
@@ -28,7 +28,7 @@ export function cadastrarEstoque(req: Request, res: Response) {
         res.status(201).json({ message: "Estoque Criado com sucesso", novoEstoque })
     }
     catch (error: any) {
-        res.status(400).json({ message: error.message })
+        res.status(error.status).json({ message: error.message })
     }
 }
 
@@ -40,7 +40,7 @@ export function atualizarEstoque(req: Request, res: Response) {
         res.status(200).json({ message: "Estoque atualizado com sucesso", EstoqueAtualizado })
     }
     catch (error: any) {
-        res.status(400).json({ message: error.message })
+        res.status(error.status).json({ message: error.message })
     }
 }
 
@@ -51,7 +51,7 @@ export function listarEstoquePorIdCarro(req: Request, res: Response) {
         res.status(200).json({ quantidade: estoque })
     }
     catch (error: any) {
-        res.status(400).json({ message: error.message })
+        res.status(error.status).json({ message: error.message })
     }
 }
 
@@ -62,6 +62,6 @@ export function deletaEstoque(req: Request, res: Response) {
         res.status(200).json({ message: "Estoque deletado com sucesso", estoque })
     }
     catch (error: any) {
-        res.status(400).json({ message: error.message })
+        res.status(error.status).json({ message: error.message })
     }
 }

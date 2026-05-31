@@ -8,7 +8,7 @@ export function listarNotaFiscal(req: Request, res: Response) {
         res.status(200).json(notaFiscalService.listaNotas())
     }
     catch (error: any) {
-        res.status(404).json({ message: error.message })
+        res.status(error.status).json({ message: error.message })
     }
 }
 
@@ -18,7 +18,7 @@ export function listarNotaFiscalPorId(req: Request, res: Response) {
         res.status(200).json(notaFiscalService.listaNotaPorId(id))
     }
     catch (error: any) {
-        res.status(404).json({ message: error.message })
+        res.status(error.status).json({ message: error.message })
     }
 }
 
@@ -28,6 +28,6 @@ export function criarNotaFiscal(req: Request, res: Response) {
         res.status(200).json(notaFiscalService.emiteNota(notaData))
     }
     catch (error: any) {
-        res.status(404).json({ message: error.message })
+        res.status(error.status).json({ message: error.message })
     }
 }

@@ -4,6 +4,7 @@ import { ClienteRepository } from "../repositories/clienteRepository"
 import { VendedorRepository } from "../repositories/VendedorRepository"
 import { CarroRepository } from "../repositories/CarroRepository"
 import { EstoqueRepository } from "../repositories/EstoqueRepository"
+import { ErrorApp } from "../models/Error";
 
 
 export class NotaFiscalService {
@@ -15,7 +16,7 @@ export class NotaFiscalService {
 
     listaNotas(): NotaFiscal[] | number {
         if (this.NotaFiscalRepository.listaNotas().length == 0) {
-            throw new Error("Nenhum registro encontrado")
+            throw new ErrorApp(404,"Nenhum registro encontrado")
         }
         return this.NotaFiscalRepository.listaNotas()
     }
@@ -23,7 +24,7 @@ export class NotaFiscalService {
 
     listaNotaPorId(id: number) {
         if (!this.NotaFiscalRepository.listaNotaPorId(id)) {
-            throw new Error("Nenhum registro encontrado");
+            throw new ErrorApp(404,"Nenhum registro encontrado");
         }
         return this.NotaFiscalRepository.listaNotaPorId(id)
     }
@@ -32,31 +33,31 @@ export class NotaFiscalService {
         const dataAtual = new Date();
 
         if (!notaData.data_emissao || !notaData.valor_total || !notaData.id_cliente || !notaData.id_vendedor || !notaData.id_carro) {
-            throw new Error("Dados faltantes");
+            throw new ErrorApp(400,"Dados faltantes");
         }
         const dataNota = new Date(notaData.data_emissao)
 
-        if (dataNota > dataAtual) {
-            throw new Error("Data de emissão esta incorreta");
+        if (dataNota > dataAtual || isNaN(dataNota.getTime())) {
+            throw new ErrorApp(422,"Data de emissão esta incorreta");
         }
         if (notaData.valor_total <= 0) {
-            throw new Error("Valor Total deve ser maior que zero");
+            throw new ErrorApp(422,"Valor Total deve ser maior que zero");
         }
 
         const carros = this.CarroRepository.listaCarros()
         const carrosDisponiveis = carros.filter(carro => this.EstoqueRepository.listaEstoquePorIdCarro(carro.id_carro)?.quantidade != 0)
 
         if (!carrosDisponiveis.find(carro => carro.id_carro == notaData.id_carro)) {
-            throw new Error("Carro nnão esta disponivel");
+            throw new ErrorApp(422,"Carro não esta disponivel");
         }
         if (!this.ClienteRepository.listaClientePorId(notaData.id_cliente)) {
-            throw new Error("Cliente não cadastrado");
+            throw new ErrorApp(404,"Cliente não cadastrado");
         }
         if (!this.VendedorRepository.listaVendedorPorId(notaData.id_vendedor)) {
-            throw new Error("Vendedor não cadastrado");
+            throw new ErrorApp(404,"Vendedor não cadastrado");
         }
         if (!this.EstoqueRepository.existeEstoque(notaData.id_carro)) {
-            throw new Error("Valor de estoque deve ser maior que zero");
+            throw new ErrorApp(422,"Valor de estoque deve ser maior que zero");
         }
         const carro = carrosDisponiveis.find(carro => carro.id_carro == notaData.id_carro)
         const estoque = this.EstoqueRepository.listaEstoquePorIdCarro(carro?.id_carro ?? 0)

@@ -52,9 +52,9 @@ export function deletarcliente(req: Request, res: Response){
     }
 }
 // export function listaNotasPorcliente(req: Request, res: Response){
-//     const id = Number(req.params.id)
+//     const id:number = Number(req.params.id)
 //     try{
-//         res.status(200).json(clienteService.listaClientes(id))
+//         res.status(200).json(clienteService.lista(id))
 //     }
 //     catch(error:any){
 //         res.status(404).json({message: error.message})

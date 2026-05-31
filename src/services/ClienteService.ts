@@ -54,6 +54,9 @@ export class ClienteService{
         if(!this.ClienteRepository.listaClientePorId(id)){
             throw new Error("Cliente não encontrado");
        }
+       if(this.NotFiscalRepository.existeNotaPorCliente(id)){
+            throw new Error("Cliente possuí notas emitidas em seu nome")
+       }
        this.ClienteRepository.deletaCliente(id) 
     }
    }

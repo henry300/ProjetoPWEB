@@ -4,7 +4,7 @@ export class ClienteRepository {
     private static instance: ClienteRepository;
     private clienteList: Cliente[] = [];
 
-    private constructor() {}
+    private constructor() { }
 
     public static getInstance(): ClienteRepository {
         if (!this.instance) {

@@ -1,36 +1,41 @@
-import {Vendedor} from '../models/vendedor';
+import { Vendedor } from '../models/vendedor';
 
-export class VendedorRepository{
+export class VendedorRepository {
     private static instance: VendedorRepository;
     private VendedorList: Vendedor[] = []
 
-    private constructor(){}
+    private constructor() { }
 
-    public static getInstance():VendedorRepository{
-        if(!this.instance){
-            this.instance= new VendedorRepository()
+    public static getInstance(): VendedorRepository {
+        if (!this.instance) {
+            this.instance = new VendedorRepository()
         }
         return this.instance;
     }
 
-    ListaVendedor(): Vendedor[]{
+    ListaVendedor(): Vendedor[] {
         return this.VendedorList;
     }
-    listaVendedorPorId(id:number): Vendedor | undefined{
-        return this.VendedorList.find(vendedor=>vendedor.id_vendedor == id)
+
+    listaVendedorPorId(id: number): Vendedor | undefined {
+        return this.VendedorList.find(vendedor => vendedor.id_vendedor == id)
     }
-    CadastraVendedor(vendedor:Vendedor){
+
+    CadastraVendedor(vendedor: Vendedor) {
         this.VendedorList.push(vendedor)
     }
-    DeletarVendedor(id: number){
+
+    DeletarVendedor(id: number) {
         const indice = this.VendedorList.findIndex(vendedor => vendedor.id_vendedor == id)
         this.VendedorList.splice(indice, 1)
     }
-    existeMatricula(matricula:string):boolean{
+
+    existeMatricula(matricula: string): boolean {
         return this.VendedorList.some(vendedor => vendedor.matricula == matricula)
     }
-    atualizaVendedor(vendedorAtualizado: Vendedor){
-        const index:number = this.VendedorList.findIndex(vendedor=>vendedor.id_vendedor == vendedorAtualizado.id_vendedor)
+    
+    atualizaVendedor(vendedorAtualizado: Vendedor) {
+        const index: number = this.VendedorList.findIndex(vendedor => vendedor.id_vendedor == vendedorAtualizado.id_vendedor)
         this.VendedorList[index] = vendedorAtualizado
         return vendedorAtualizado;
     }

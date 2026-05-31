@@ -7,7 +7,7 @@ export class NotaFiscal {
     id_vendedor: number;
     id_carro: number;
 
-    constructor(numero_nota: string,data_emissao: Date,valor_total: number,id_cliente: number,id_vendedor: number,id_carro: number,){
+    constructor(numero_nota: string, data_emissao: Date, valor_total: number, id_cliente: number, id_vendedor: number, id_carro: number,) {
         this.id_nota = this.geraId()
         this.numero_nota = numero_nota
         this.data_emissao = data_emissao
@@ -17,7 +17,7 @@ export class NotaFiscal {
         this.id_carro = id_carro
     }
 
-    private geraId():number{
+    private geraId(): number {
         return Date.now();
     }
-  }
+}

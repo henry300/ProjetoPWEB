@@ -4,7 +4,7 @@ export class NotaFiscalRepository {
     private static instance: NotaFiscalRepository;
     private notaFiscalList: NotaFiscal[] = [];
 
-    private constructor() {}
+    private constructor() { }
 
     public static getInstance(): NotaFiscalRepository {
         if (!this.instance) {

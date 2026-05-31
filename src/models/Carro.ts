@@ -1,4 +1,4 @@
-export class Carro{
+export class Carro {
     id_carro: number
     marca: string
     modelo: string
@@ -7,7 +7,7 @@ export class Carro{
     preco: number
     cor: string
 
-    constructor(marca:string,modelo:string,ano: number,placa: string,preco: number,cor: string){
+    constructor(marca: string, modelo: string, ano: number, placa: string, preco: number, cor: string) {
         this.id_carro = this.geraId()
         this.marca = marca
         this.modelo = modelo
@@ -17,7 +17,7 @@ export class Carro{
         this.cor = cor
     }
 
-    private geraId():number{
+    private geraId(): number {
         return Date.now();
     }
 }

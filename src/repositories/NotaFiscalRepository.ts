@@ -47,6 +47,6 @@ export class NotaFiscalRepository {
 
     adicionaNota(nota: NotaFiscal): NotaFiscal {
         this.notaFiscalList.push(nota);
-        return nota;
+        return nota
     }
 }

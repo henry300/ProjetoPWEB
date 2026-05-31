@@ -17,7 +17,7 @@ O sistema deve permitir o gerenciamento completo do cadastro de clientes, vended
 - [x] GET /clientes/:id `Retorna os dados de um cliente pelo id`.
 - [x] POST /clientes `Cadastra um novo cliente`
 - [x] PUT /clientes/:id `Atualiza os dados de um cliente existente`
-- [ ] DELETE /clientes/:id `Remove um cliente (somente se não possuir notas fiscais)`
+- [x] DELETE /clientes/:id `Remove um cliente (somente se não possuir notas fiscais)`
 - [ ] GET /clientes/notas/:id `Lista todas as notas fiscais de um cliente`
 ### Vendedores
 - [X] GET     /vendedores `Lista todos os vendedores`

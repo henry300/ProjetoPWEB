@@ -34,13 +34,14 @@ export class NotaFiscalService{
         if(!notaData.data_emissao || !notaData.valor_total || !notaData.id_cliente || !notaData.id_vendedor || !notaData.id_carro){
             throw new Error("Dados faltantes");
         }
+        const dataNota = new Date(notaData.data_emissao)
 
-        if(notaData.data_emissao > dataAtual){
+        if(dataNota > dataAtual){
              throw new Error("Data de emissão esta incorreta");
         }
 
         if(notaData.valor_total <= 0){
-            throw new Error("Valor deve ser maior que zero");
+            throw new Error("Valor Total deve ser maior que zero");
         }
 
         const carros = this.CarroRepository.listaCarros()
@@ -57,7 +58,7 @@ export class NotaFiscalService{
         }
 
         if(!this.EstoqueRepository.existeEstoque(notaData.id_carro)){
-             throw new Error("Valor deve ser maior que zero");
+             throw new Error("Valor de estoque deve ser maior que zero");
         }
         const carro = carrosDisponiveis.find(carro => carro.id_carro == notaData.id_carro)
         const estoque = this.EstoqueRepository.listaEstoquePorIdCarro(carro?.id_carro ?? 0)
@@ -65,7 +66,8 @@ export class NotaFiscalService{
             estoque.quantidade --
             this.EstoqueRepository.atualizarEstoque(estoque)
         }
-        return notaData
+        const novaNota = new NotaFiscal(notaData.numero_nota,notaData.data_emissao,notaData.valor_total,notaData.id_cliente,notaData.id_vendedor,notaData.id_carro)
+        return this.NotaFiscalRepository.adicionaNota(novaNota)
     }
 }
 

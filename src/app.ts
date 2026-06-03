@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import { atualizarCarro, cadastrarCarro, deleteCarro, listaCarros, listarCarroPorId, listarCarrosDisponiveis } from "./controllers/carroController";
 import { atualizarEstoque, cadastrarEstoque, deletaEstoque, listaEstoques, listarEstoquePorId, listarEstoquePorIdCarro } from "./controllers/estoqueController";
-import { criarNotaFiscal, listarNotaFiscal } from "./controllers/notaFiscalController";
+import { criarNotaFiscal, listarNotaFiscal, listarNotaFiscalPorId } from "./controllers/notaFiscalController";
 import { AtualizaVendedor, CadastraVendedor, deletarVendedor, listaNotasPorVendedor, listaVendedor, listaVendedorPorId } from "./controllers/vendedorController";
 import { Atualizacliente, Cadastracliente, deletarcliente, listacliente, listaclientePorId, listaNotasPorCliente } from "./controllers/clienteControler";
 
@@ -29,7 +29,7 @@ app.delete("/estoque/:id",deletaEstoque)
 
 // Nota fiscal
 app.get("/notas/",listarNotaFiscal)
-app.get("/notas/:id",listarCarroPorId)
+app.get("/notas/:id",listarNotaFiscalPorId)
 app.post("/notas",criarNotaFiscal)
 
 //Vendedor

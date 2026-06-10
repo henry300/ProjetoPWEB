@@ -15,9 +15,6 @@ export class NotaFiscalService {
     EstoqueRepository: EstoqueRepository = EstoqueRepository.getInstance()
 
     listaNotas(): NotaFiscal[] | number {
-        if (this.NotaFiscalRepository.listaNotas().length == 0) {
-            throw new ErrorApp(404,"Nenhum registro encontrado")
-        }
         return this.NotaFiscalRepository.listaNotas()
     }
 

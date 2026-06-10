@@ -8,9 +8,6 @@ export class EstoqueService {
     CarroRespository: CarroRepository = CarroRepository.getInstance();
 
     listaEstoques(): Estoque[] | number {
-        if (this.EstoqueRepository.listaEstoque().length == 0) {
-            throw new ErrorApp(404,"Nenhum registro encontrado")
-        }
         return this.EstoqueRepository.listaEstoque()
     }
 

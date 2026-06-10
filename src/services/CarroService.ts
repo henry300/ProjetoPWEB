@@ -10,9 +10,6 @@ export class CarroService {
     NotaFiscalRepository: NotaFiscalRepository = NotaFiscalRepository.getInstance()
 
     listaCarros(): Carro[] | number {
-        if (this.CarroRepository.listaCarros().length == 0) {
-            throw new ErrorApp(404,"Nenhum registro encontrado")
-        }
         return this.CarroRepository.listaCarros()
     }
 
@@ -27,9 +24,6 @@ export class CarroService {
     listaCarrosDisponiveis(): Carro[] {
         const carros = this.CarroRepository.listaCarros()
         const carrosDisponiveis = carros.filter(carro => this.EstoqueRepository.listaEstoquePorIdCarro(carro.id_carro)?.quantidade != 0)
-        if (carrosDisponiveis.length == 0) {
-            throw new ErrorApp(404,"Nenhum registro encontrado");
-        }
         return carrosDisponiveis
     }
 

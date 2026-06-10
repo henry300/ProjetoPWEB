@@ -8,9 +8,6 @@ export class ClienteService {
     ClienteRepository: ClienteRepository = ClienteRepository.getInstance();
 
     listaClientes(): Cliente[] | number {
-        if (this.ClienteRepository.listaClientes().length == 0) {
-            throw new ErrorApp(404,"Nenhum registro encontrado!")
-        }
         return this.ClienteRepository.listaClientes()
     }
 

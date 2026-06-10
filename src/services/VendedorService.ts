@@ -8,9 +8,6 @@ export class VendedorService {
     NotaFiscalRepository: NotaFiscalRepository = NotaFiscalRepository.getInstance()
 
     listaVendedor(): Vendedor[] | number {
-        if (this.VendedorRepository.ListaVendedor().length == 0) {
-            throw new ErrorApp(404,"Nenhum registro encontrado!")
-        }
         return this.VendedorRepository.ListaVendedor()
     }
 

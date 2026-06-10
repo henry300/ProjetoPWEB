@@ -30,6 +30,11 @@ export class EstoqueService {
     cadastraEstoque(EstoqueData: any) {
         const dataAtual = new Date();
         const anoAtual = dataAtual.getFullYear();
+        const dataEstoque= new Date(EstoqueData.data_entrada)
+
+        if (dataEstoque > dataAtual || isNaN(dataEstoque.getTime())) {
+            throw new ErrorApp(400,"Data de emissão esta incorreta");
+        }
         if (!EstoqueData.id_carro || !EstoqueData.quantidade || !EstoqueData.localizacao_patio || !EstoqueData.data_entrada) {
             throw new ErrorApp(400,"Dados faltantes");
         }
@@ -39,11 +44,8 @@ export class EstoqueService {
         if (!this.CarroRespository.listaCarroPorId(EstoqueData.id_carro)) {
             throw new ErrorApp(404,"Carro não encontrado");
         }
-        if (EstoqueData.data_entrada < anoAtual) {
-            throw new ErrorApp(409,"Data invalida");
-        }
         if (EstoqueData.quantidade < 0) {
-            throw new ErrorApp(422,"Quantidade deve ser igual ou maior que 0");
+            throw new ErrorApp(400,"Quantidade deve ser igual ou maior que 0");
         }
         const novoEstoque = new Estoque(EstoqueData.id_carro, EstoqueData.quantidade, EstoqueData.localizacao_patio, EstoqueData.data_entrada)
         this.EstoqueRepository.cadastraEstoque(novoEstoque)

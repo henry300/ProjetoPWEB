@@ -34,10 +34,10 @@ export class CarroService {
             throw new ErrorApp(400,"Dados faltantes");
         }
         if (carroData.ano < 1950 || carroData.ano > anoAtual + 1) {
-            throw new ErrorApp(422,"Data invalida");
+            throw new ErrorApp(400,"Data invalida");
         }
         if (carroData.preco <= 0) {
-            throw new ErrorApp(422,"Preço deve ser maior que 0");
+            throw new ErrorApp(400,"Preço deve ser maior que 0");
         }
         if (this.CarroRepository.existePlaca(carroData.placa)) {
             throw new ErrorApp(409,"placa já cadastrada");

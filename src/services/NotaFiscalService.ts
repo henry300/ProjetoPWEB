@@ -35,10 +35,10 @@ export class NotaFiscalService {
         const dataNota = new Date(notaData.data_emissao)
 
         if (dataNota > dataAtual || isNaN(dataNota.getTime())) {
-            throw new ErrorApp(422,"Data de emissão esta incorreta");
+            throw new ErrorApp(400,"Data de emissão esta incorreta");
         }
         if (notaData.valor_total <= 0) {
-            throw new ErrorApp(422,"Valor Total deve ser maior que zero");
+            throw new ErrorApp(400,"Valor Total deve ser maior que zero");
         }
 
         const carros = this.CarroRepository.listaCarros()

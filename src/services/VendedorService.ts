@@ -27,7 +27,7 @@ export class VendedorService {
             throw new ErrorApp(409,"Matrícula já cadastrada");
         }
         if (vendedorData.comissao_percentual < 0 || vendedorData.comissao_percentual > 30) {
-            throw new ErrorApp(422,"Comissão inválida");
+            throw new ErrorApp(400,"Comissão inválida");
         }
         const novoVendedor = new Vendedor(vendedorData.nome, vendedorData.matricula, vendedorData.comissao_percentual)
         this.VendedorRepository.CadastraVendedor(novoVendedor)

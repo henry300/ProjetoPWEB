@@ -25,7 +25,7 @@ export function listarNotaFiscalPorId(req: Request, res: Response) {
 export function criarNotaFiscal(req: Request, res: Response) {
     const notaData = req.body
     try {
-        res.status(200).json(notaFiscalService.emiteNota(notaData))
+        res.status(201).json(notaFiscalService.emiteNota(notaData))
     }
     catch (error: any) {
         res.status(error.status).json({ message: error.message })

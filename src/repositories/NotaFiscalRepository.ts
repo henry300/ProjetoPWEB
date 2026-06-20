@@ -2,7 +2,24 @@ import { NotaFiscal } from "../models/NotaFiscal";
 
 export class NotaFiscalRepository {
     private static instance: NotaFiscalRepository;
-    private notaFiscalList: NotaFiscal[] = [];
+    private notaFiscalList: NotaFiscal[] = []
+
+    static getCreateTableQuery(): string {
+    return `
+    CREATE TABLE NotaFiscal (
+        id_nota INT AUTO_INCREMENT PRIMARY KEY,
+        numero_nota VARCHAR(50) NOT NULL UNIQUE,
+        data_emissao DATE NOT NULL,
+        valor_total DECIMAL(10,2) NOT NULL,
+        id_cliente INT NOT NULL,
+        id_vendedor INT NOT NULL,
+        id_carro INT NOT NULL,
+
+        FOREIGN KEY (id_cliente) REFERENCES Cliente(id_cliente),
+        FOREIGN KEY (id_vendedor) REFERENCES Vendedor(id_vendedor),
+        FOREIGN KEY (id_carro) REFERENCES Carro(id_carro)
+    );`;
+    }
 
     private constructor() { }
 

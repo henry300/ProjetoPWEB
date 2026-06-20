@@ -1,10 +1,15 @@
 import mysql, { Connection } from 'mysql2';
+import { ClienteRepository } from '../repositories/clienteRepository';
+import { VendedorRepository } from '../repositories/VendedorRepository';
+import { CarroRepository } from '../repositories/CarroRepository';
+import { EstoqueRepository } from '../repositories/EstoqueRepository';
+import { NotaFiscalRepository } from '../repositories/NotaFiscalRepository';
 
 const dbConfig = {
     host: 'localhost',
     port: 3306,
     user: 'root',
-    password: 'mysql',
+    password: '',
     database: 'PROJETOPWEB'
 };
 
@@ -34,7 +39,11 @@ export async function inicializarBanco(): Promise<void> {
     console.log('Sincronizando schemas do banco de dados...');
     
     const schemas = [
-""
+        ClienteRepository.getCreateTableQuery(),
+        VendedorRepository.getCreateTableQuery(),
+        CarroRepository.getCreateTableQuery(),
+        EstoqueRepository.getCreateTableQuery(),
+        NotaFiscalRepository.getCreateTableQuery()
     ];
     
     try {

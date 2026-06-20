@@ -2,7 +2,19 @@ import { Cliente } from "../models/Cliente";
 
 export class ClienteRepository {
     private static instance: ClienteRepository;
-    private clienteList: Cliente[] = [];
+    private clienteList: Cliente[] = []
+
+    static getCreateTableQuery(): string {
+    return `
+        CREATE TABLE Cliente (
+            id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+            nome VARCHAR(100) NOT NULL,
+            cpf VARCHAR(14) NOT NULL UNIQUE,
+            telefone VARCHAR(20),
+            email VARCHAR(100),
+            cidade VARCHAR(100)
+        );`;
+    }
 
     private constructor() { }
 

@@ -4,6 +4,19 @@ export class EstoqueRepository {
     private static instance: EstoqueRepository;
     private EstoqueList: Estoque[] = []
 
+    static getCreateTableQuery(): string {
+    return `
+        CREATE TABLE Estoque (
+            id_estoque INT AUTO_INCREMENT PRIMARY KEY,
+            id_carro INT NOT NULL,
+            quantidade INT NOT NULL,
+            localizacao_patio VARCHAR(100),
+            data_entrada DATE,
+
+            FOREIGN KEY (id_carro) REFERENCES Carro(id_carro)
+        );`;
+    }
+
     private constructor() { }
 
     public static getInstance(): EstoqueRepository {

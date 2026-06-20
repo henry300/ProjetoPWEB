@@ -4,6 +4,17 @@ export class VendedorRepository {
     private static instance: VendedorRepository;
     private VendedorList: Vendedor[] = []
 
+    static getCreateTableQuery(): string {
+    return `
+        CREATE TABLE Vendedor (
+            id_vendedor INT AUTO_INCREMENT PRIMARY KEY,
+            nome VARCHAR(100) NOT NULL,
+            matricula VARCHAR(50) NOT NULL UNIQUE,
+            comissao_percentual DECIMAL(5,2)
+        );`;
+    }
+
+
     private constructor() { }
 
     public static getInstance(): VendedorRepository {

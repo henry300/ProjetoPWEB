@@ -4,6 +4,19 @@ export class CarroRepository {
     private static instance: CarroRepository;
     private CarroList: Carro[] = []
 
+    static getCreateTableQuery(): string {
+    return `
+        CREATE TABLE Carro (
+            id_carro INT AUTO_INCREMENT PRIMARY KEY,
+            marca VARCHAR(50) NOT NULL,
+            modelo VARCHAR(50) NOT NULL,
+            ano INT NOT NULL,
+            placa VARCHAR(10) NOT NULL UNIQUE,
+            preco DECIMAL(10,2) NOT NULL,
+            cor VARCHAR(30)
+        );`;
+    }
+
     private constructor() { }
 
     public static getInstance(): CarroRepository {
@@ -32,7 +45,7 @@ export class CarroRepository {
     existePlaca(placa: string): boolean {
         return this.CarroList.some(c => c.placa == placa)
     }
-    
+
     atualizarCarro(carroAtualizado: Carro): Carro {
         const index: number = this.CarroList.findIndex(carro => carro.id_carro == carroAtualizado.id_carro)
         this.CarroList[index] = carroAtualizado

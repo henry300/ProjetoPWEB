@@ -1,11 +1,13 @@
 import { Cliente } from "../models/Cliente";
+import { executarComandoSQL } from "../database/mysql";
+
 
 export class ClienteRepository {
     private static instance: ClienteRepository;
     private clienteList: Cliente[] = []
 
     static getCreateTableQuery(): string {
-    return `
+        return `
         CREATE TABLE Cliente (
             id_cliente INT AUTO_INCREMENT PRIMARY KEY,
             nome VARCHAR(100) NOT NULL,
@@ -25,34 +27,65 @@ export class ClienteRepository {
         return this.instance;
     }
 
-    listaClientes(): Cliente[] {
-        return this.clienteList;
+    async listaClientes(): Promise<Cliente[]> {
+        const resultado = await executarComandoSQL(
+            "SELECT * FROM Cliente",
+            []
+        );
+
+        return resultado as Cliente[];
     }
 
-    listaClientePorId(id: number): Cliente | undefined {
-        return this.clienteList.find(c => c.id_cliente === id);
+    async listaClientePorId(id: number): Promise<Cliente | null> {
+
+        const resultado = await executarComandoSQL(
+            "SELECT * FROM Cliente WHERE id_cliente = ?",
+            [id]
+        );
+
+        return resultado.length > 0 ? resultado[0] : null;
     }
 
-    existeCpf(cpf: string): boolean {
-        return this.clienteList.some(c => c.cpf === cpf);
+    async existeCpf(cpf: string): Promise<Boolean> {
+
+        const resultado = await executarComandoSQL(
+            "SELECT * FROM Cliente WHERE cpf = ?",
+            [cpf]
+        );
+
+        return resultado.length > 0;
     }
 
-    adicionaCliente(cliente: Cliente): Cliente {
-        this.clienteList.push(cliente);
-        return cliente;
+    async adicionaCliente(cliente: Cliente): Promise<void> {
+
+        await executarComandoSQL(
+            `INSERT INTO Cliente (id_cliente, nome, telefone, cpf, email, cidade)
+                VALUES (?, ?, ?, ?, ?, ?)`,
+            [cliente.id_cliente, cliente.nome, cliente.telefone, cliente.cpf, cliente.email, cliente.cidade]
+        );
     }
 
-    atualizaCliente(clienteAtualizado: Cliente): Cliente | undefined {
-        const index = this.clienteList.findIndex(c => c.id_cliente === clienteAtualizado.id_cliente);
-        if (index === -1) return undefined;
-        this.clienteList[index] = clienteAtualizado;
-        return this.clienteList[index];
+    async atualizaCliente(clienteAtualizado: Cliente): Promise<Cliente> {
+
+        await executarComandoSQL(
+            `UPDATE Cliente
+             SET id_cliente = ?,
+                 nome = ?,
+                 telefone = ?,
+                 cpf = ?,
+                 email = ?,
+                 cidade = ?
+             WHERE id_cliente = ?`,
+            [clienteAtualizado.id_cliente, clienteAtualizado.nome, clienteAtualizado.telefone, clienteAtualizado.cpf, clienteAtualizado.email, clienteAtualizado.cidade]
+        );
+
+        return clienteAtualizado;
     }
 
-    deletaCliente(id: number): boolean {
-        const index = this.clienteList.findIndex(c => c.id_cliente === id);
-        if (index === -1) return false;
-        this.clienteList.splice(index, 1);
-        return true;
+    async deletaCliente(id_carro: number): Promise<void> {
+        await executarComandoSQL(
+            "DELETE FROM Cliente WHERE id_cliente = ?",
+            [id_carro]
+        );
     }
 }

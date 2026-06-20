@@ -1,11 +1,12 @@
 import { Carro } from "../models/Carro";
+import { executarComandoSQL } from "../database/mysql";
 
 export class CarroRepository {
     private static instance: CarroRepository;
     private CarroList: Carro[] = []
 
     static getCreateTableQuery(): string {
-    return `
+        return `
         CREATE TABLE Carro (
             id_carro INT AUTO_INCREMENT PRIMARY KEY,
             marca VARCHAR(50) NOT NULL,
@@ -26,29 +27,66 @@ export class CarroRepository {
         return this.instance
     }
 
-    listaCarros(): Carro[] {
-        return this.CarroList;
+    async listaCarros(): Promise<Carro[]> {
+        const resultado = await executarComandoSQL(
+            "SELECT * FROM Carro",
+            []
+        );
+
+        return resultado as Carro[];
     }
 
-    listaCarroPorId(id: number): Carro | undefined {
-        return this.CarroList.find(carro => carro.id_carro == id)
-    }
-    cadastraCarro(carro: Carro) {
-        this.CarroList.push(carro)
+    async listaCarroPorId(id: number): Promise<Carro | null> {
+
+        const resultado = await executarComandoSQL(
+            "SELECT * FROM Carro WHERE id_carro = ?",
+            [id]
+        );
+
+        return resultado.length > 0 ? resultado[0] : null;
     }
 
-    deletarCarro(id_carro: number) {
-        const index: number = this.CarroList.findIndex(carro => carro.id_carro == id_carro)
-        this.CarroList.splice(index, 1)
+    async cadastraCarro(carro: Carro): Promise<void> {
+
+        await executarComandoSQL(
+            `INSERT INTO Carro (id_carro, marca, modelo, ano, placa, preco, cor)
+            VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            [carro.id_carro, carro.marca, carro.modelo, carro.ano, carro.placa, carro.preco, carro.cor]
+        );
     }
 
-    existePlaca(placa: string): boolean {
-        return this.CarroList.some(c => c.placa == placa)
+    async deletarCarro(id_carro: number): Promise<void> {
+
+        await executarComandoSQL(
+            "DELETE FROM Carro WHERE id_carro = ?",
+            [id_carro]
+        );
     }
 
-    atualizarCarro(carroAtualizado: Carro): Carro {
-        const index: number = this.CarroList.findIndex(carro => carro.id_carro == carroAtualizado.id_carro)
-        this.CarroList[index] = carroAtualizado
+    async existePlaca(placa: string): Promise<boolean> {
+
+        const resultado = await executarComandoSQL(
+            "SELECT * FROM Carro WHERE placa = ?",
+            [placa]
+        );
+
+        return resultado.length > 0;
+    }
+
+    async atualizarCarro(carroAtualizado: Carro): Promise<Carro> {
+
+        await executarComandoSQL(
+            `UPDATE Carro
+             SET marca = ?,
+                 modelo = ?,
+                 ano = ?,
+                 placa = ?,
+                 preco = ?,
+                 cor = ?
+             WHERE id_carro = ?`,
+            [carroAtualizado.marca, carroAtualizado.modelo, carroAtualizado.ano, carroAtualizado.placa, carroAtualizado.preco, carroAtualizado.cor, carroAtualizado.id_carro]
+        );
+
         return carroAtualizado;
     }
 }

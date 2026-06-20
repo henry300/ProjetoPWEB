@@ -32,6 +32,9 @@ export class NotaFiscalService {
         if (!notaData.data_emissao || !notaData.valor_total || !notaData.id_cliente || !notaData.id_vendedor || !notaData.id_carro) {
             throw new ErrorApp(400,"Dados faltantes");
         }
+        if(this.NotaFiscalRepository.existeNumeroNota(notaData.numero_nota)){
+            throw new ErrorApp(409,"Numeração já emitida");
+        }
         const dataNota = new Date(notaData.data_emissao)
 
         if (dataNota > dataAtual || isNaN(dataNota.getTime())) {

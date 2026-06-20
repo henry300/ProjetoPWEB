@@ -11,12 +11,11 @@ export class EstoqueService {
         return this.EstoqueRepository.listaEstoque()
     }
 
-    listaEstoquesId(id: any): Estoque | undefined {
-        const idNumber: number = parseInt(id, 10);
-        if (!this.EstoqueRepository.listaEstoquePorId(idNumber)) {
+    listaEstoquesId(id: number): Estoque | undefined {
+        if (!this.EstoqueRepository.listaEstoquePorId(id)){
             throw new ErrorApp(404,"Nenhum registro encontrado");
         }
-        return this.EstoqueRepository.listaEstoquePorId(idNumber)
+        return this.EstoqueRepository.listaEstoquePorId(id)
     }
 
     listaEstoquesIdCarro(id: number): number | undefined {

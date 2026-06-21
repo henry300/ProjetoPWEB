@@ -1,6 +1,6 @@
 export class Carro {
     constructor(
-        public id_carro: number | null, 
+        public id_carro: number, 
         public marca: string, 
         public modelo: string, 
         public ano: number, 

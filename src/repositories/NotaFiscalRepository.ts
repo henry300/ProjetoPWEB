@@ -106,7 +106,7 @@ export class NotaFiscalRepository {
         return resultado.length > 0;
     }
 
-    async existeNumeroNota(numero_nota: number): Promise<Boolean> {
+    async existeNumeroNota(numero_nota: string): Promise<Boolean> {
 
         const resultado = await executarComandoSQL(
             "SELECT * FROM notafiscal where numero_nota = ?",

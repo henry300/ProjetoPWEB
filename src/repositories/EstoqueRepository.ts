@@ -8,7 +8,7 @@ export class EstoqueRepository {
     static getCreateTableQuery(): string {
         return `
         CREATE TABLE IF NOT EXISTS Estoque (
-            id_estoque INT PRIMARY KEY,
+            id_estoque INT AUTO_INCREMENT PRIMARY KEY,
             id_carro INT NOT NULL,
             quantidade INT NOT NULL,
             localizacao_patio VARCHAR(100),

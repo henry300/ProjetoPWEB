@@ -8,7 +8,7 @@ export class VendedorRepository {
     static getCreateTableQuery(): string {
         return `
         CREATE TABLE IF NOT EXISTS Vendedor (
-            id_vendedor INT PRIMARY KEY,
+            id_vendedor INT AUTO_INCREMENT PRIMARY KEY,
             nome VARCHAR(100) NOT NULL,
             matricula VARCHAR(50) NOT NULL UNIQUE,
             comissao_percentual DECIMAL(5,2)

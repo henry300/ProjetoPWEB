@@ -8,7 +8,7 @@ export class ClienteRepository {
     static getCreateTableQuery(): string {
         return `
         CREATE TABLE IF NOT EXISTS Cliente (
-            id_cliente INT PRIMARY KEY,
+            id_cliente INT AUTO_INCREMENT PRIMARY KEY,
             nome VARCHAR(100) NOT NULL,
             cpf VARCHAR(14) NOT NULL UNIQUE,
             telefone VARCHAR(20),
@@ -57,28 +57,28 @@ export class ClienteRepository {
         return resultado.length > 0;
     }
 
-    async adicionaCliente(cliente: Cliente): Promise<boolean> {
+    async adicionaCliente(cliente: Cliente): Promise<number> {
 
         await executarComandoSQL(
-            `INSERT INTO Cliente (id_cliente, nome, telefone, cpf, email, cidade)
-                VALUES (?, ?, ?, ?, ?, ?)`,
-            [cliente.id_cliente, cliente.nome, cliente.telefone, cliente.cpf, cliente.email, cliente.cidade]
+            `INSERT INTO Cliente (nome, telefone, cpf, email, cidade)
+                VALUES (?, ?, ?, ?, ?)`,
+            [cliente.nome, cliente.telefone, cliente.cpf, cliente.email, cliente.cidade]
         );
-        return true;
+        return cliente.id_cliente;
     }
 
     async atualizaCliente(clienteAtualizado: Cliente): Promise<boolean> {
 
         await executarComandoSQL(
             `UPDATE Cliente
-             SET id_cliente = ?,
+             SET 
                  nome = ?,
                  telefone = ?,
                  cpf = ?,
                  email = ?,
                  cidade = ?
-             WHERE id_cliente = ?`,
-            [clienteAtualizado.id_cliente, clienteAtualizado.nome, clienteAtualizado.telefone, clienteAtualizado.cpf, clienteAtualizado.email, clienteAtualizado.cidade]
+             WHERE id_cliente = ?;`,
+            [clienteAtualizado.nome, clienteAtualizado.telefone, clienteAtualizado.cpf, clienteAtualizado.email, clienteAtualizado.cidade,clienteAtualizado.id_cliente]
         );
 
         return true;

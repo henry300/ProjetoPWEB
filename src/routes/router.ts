@@ -3,9 +3,11 @@ import { atualizarCarro, cadastrarCarro, deleteCarro, listaCarros, listarCarroPo
 import { atualizarEstoque, cadastrarEstoque, deletaEstoque, listaEstoques, listarEstoquePorId, listarEstoquePorIdCarro } from "../controllers/estoqueController";
 import { criarNotaFiscal, listarNotaFiscal, listarNotaFiscalPorId } from "../controllers/notaFiscalController";
 import { AtualizaVendedor, CadastraVendedor, deletarVendedor, listaNotasPorVendedor, listaVendedor, listaVendedorPorId } from "../controllers/vendedorController";
-import { Atualizacliente, Cadastracliente, deletarcliente, listacliente, listaclientePorId, listaNotasPorCliente } from "../controllers/clienteControler";
+import { clienteControler } from "../controllers/clienteControler";
 
 const router = Router();
+const ClienteControler = new clienteControler();
+
 
 // Carro
 router.get("/carros",listaCarros)
@@ -36,12 +38,12 @@ router.put("/vendedores/:id",AtualizaVendedor)
 router.delete("/vendedores/:id",deletarVendedor)
 router.get("/vendedores/notas/:id", listaNotasPorVendedor)
 
-//router.get("/vendedores",listaVendedor)
-router.get("/clientes/:id",listaclientePorId)
-router.get("/clientes",listacliente)
-router.post("/clientes",Cadastracliente)
-router.put("/clientes/:id",Atualizacliente)
-router.delete("/clientes/:id",deletarcliente)
-router.get("/clientes/notas/:id",listaNotasPorCliente)
+// Cliente
+router.get("/clientes/:id",(req: Request, res: Response) => {ClienteControler.listaclientePorId(req,res);})
+router.get("/clientes",(req: Request, res: Response) => {ClienteControler.listacliente(req,res);})
+router.post("/clientes",(req: Request, res: Response) => {ClienteControler.Cadastracliente(req,res);})
+router.put("/clientes/:id",(req: Request, res: Response) => {ClienteControler.Atualizacliente(req,res);})
+router.delete("/clientes/:id",(req: Request, res: Response) => {ClienteControler.deletarcliente(req,res);})
+router.get("/clientes/notas/:id",(req: Request, res: Response) => {ClienteControler.listaNotasPorCliente(req,res);})
 
 export default router;

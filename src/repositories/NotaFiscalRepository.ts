@@ -8,7 +8,7 @@ export class NotaFiscalRepository {
     static getCreateTableQuery(): string {
         return `
     CREATE TABLE IF NOT EXISTS NotaFiscal (
-        id_nota INT PRIMARY KEY,
+        id_nota INT AUTO_INCREMENT PRIMARY KEY,
         numero_nota VARCHAR(50) NOT NULL UNIQUE,
         data_emissao DATE NOT NULL,
         valor_total DECIMAL(10,2) NOT NULL,

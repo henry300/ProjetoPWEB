@@ -30,13 +30,12 @@ export class ClienteService {
             throw new ErrorApp(409, "cpf já cadastrado");
         }
 
-        clienteData.id_cliente = Date.now();
 
         const novoCliente = new Cliente(clienteData.id_cliente, clienteData.nome, clienteData.telefone, clienteData.cpf, clienteData.email, clienteData.cidade);
 
-        await this.ClienteRepository.adicionaCliente(novoCliente);
+        const id = await this.ClienteRepository.adicionaCliente(novoCliente);
 
-        return novoCliente;
+        return await this.ClienteRepository.listaClientePorId(id);
     }
 
     async atualizaCliente(clienteData: any, id_cliente: any) {
@@ -52,10 +51,8 @@ export class ClienteService {
             throw new ErrorApp(400, "Dados faltantes");
         }
 
-        if (
-            await this.ClienteRepository.existeCpf(clienteData.cpf) &&
-            cadastroAntigo.cpf != clienteData.cpf
-        ) {
+        if (await this.ClienteRepository.existeCpf(clienteData.cpf) && cadastroAntigo.cpf != clienteData.cpf) 
+        {
             throw new ErrorApp(409, "cpf já cadastrado");
         }
 

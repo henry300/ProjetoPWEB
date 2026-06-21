@@ -4,7 +4,6 @@ import { executarComandoSQL } from "../database/mysql";
 
 export class ClienteRepository {
     private static instance: ClienteRepository;
-    private clienteList: Cliente[] = []
 
     static getCreateTableQuery(): string {
         return `
@@ -28,12 +27,14 @@ export class ClienteRepository {
     }
 
     async listaClientes(): Promise<Cliente[]> {
-        const resultado = await executarComandoSQL(
+        const linha = await executarComandoSQL(
             "SELECT * FROM Cliente",
             []
         );
-
-        return resultado as Cliente[];
+        const clientes: Cliente[] = linha.map((linha: any) => {
+            return new Cliente(linha.id_cliente, linha.nome, linha.telefone, linha.cpf, linha.email, linha.cidade);
+        })
+        return clientes;
     }
 
     async listaClientePorId(id: number): Promise<Cliente | null> {
@@ -56,13 +57,14 @@ export class ClienteRepository {
         return resultado.length > 0;
     }
 
-    async adicionaCliente(cliente: Cliente): Promise<void> {
+    async adicionaCliente(cliente: Cliente): Promise<boolean> {
 
         await executarComandoSQL(
             `INSERT INTO Cliente (id_cliente, nome, telefone, cpf, email, cidade)
                 VALUES (?, ?, ?, ?, ?, ?)`,
             [cliente.id_cliente, cliente.nome, cliente.telefone, cliente.cpf, cliente.email, cliente.cidade]
         );
+        return true;
     }
 
     async atualizaCliente(clienteAtualizado: Cliente): Promise<Cliente> {
@@ -82,10 +84,11 @@ export class ClienteRepository {
         return clienteAtualizado;
     }
 
-    async deletaCliente(id_carro: number): Promise<void> {
+    async deletaCliente(id_carro: number): Promise<boolean> {
         await executarComandoSQL(
             "DELETE FROM Cliente WHERE id_cliente = ?",
             [id_carro]
         );
+        return true;
     }
 }

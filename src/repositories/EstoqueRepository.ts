@@ -1,11 +1,12 @@
 import { Estoque } from "../models/Estoque";
+import { executarComandoSQL } from "../database/mysql";
 
 export class EstoqueRepository {
     private static instance: EstoqueRepository;
     private EstoqueList: Estoque[] = []
 
     static getCreateTableQuery(): string {
-    return `
+        return `
         CREATE TABLE Estoque (
             id_estoque INT AUTO_INCREMENT PRIMARY KEY,
             id_carro INT NOT NULL,
@@ -26,37 +27,79 @@ export class EstoqueRepository {
         return this.instance
     }
 
-    existeEstoque(id: number): boolean {
-        return this.EstoqueList.some(estoque => estoque.id_carro === id)
+    async listaEstoque(): Promise<Estoque[]> {
+        const linha = await executarComandoSQL(
+            "SELECT * FROM estoque",
+            []
+        );
+
+        const Estoques: Estoque[] = linha.map((linha: any) => {
+            return new Estoque(linha.id_estoque, linha.id_carro, linha.quantidade, linha.localizacao_patio, linha.data_entrada);
+        })
+        return Estoques;
     }
 
-    listaEstoque(): Estoque[] {
-        return this.EstoqueList;
+    async listaEstoquePorId(id: number): Promise<Estoque | null> {
+
+        const resultado = await executarComandoSQL(
+            "SELECT * FROM estoque WHERE id_estoque = ?",
+            [id]
+        );
+
+        return resultado.length > 0 ? resultado[0] : null;
     }
 
-    listaEstoquePorId(id: number): Estoque | undefined {
-        return this.EstoqueList.find(estoque => estoque.id_estoque == id)
+    async existeEstoque(id: number): Promise<Boolean> {
+
+        const resultado = await executarComandoSQL(
+            "SELECT * FROM estoque WHERE id_estoque = ?",
+            [id]
+        );
+
+        return resultado.length > 0;
+    }
+    async listaEstoquePorIdCarro(id: number): Promise<Estoque[] | null> {
+        const linha = await executarComandoSQL(
+            "SELECT * FROM estoque where id_carro = ?",
+            [id]
+        );
+
+        const Estoques: Estoque[] = linha.map((linha: any) => {
+            return new Estoque(linha.id_estoque, linha.id_carro, linha.quantidade, linha.localizacao_patio, linha.data_entrada);
+        })
+        return Estoques;
     }
 
-    listaEstoquePorIdCarro(id: number): Estoque | undefined {
-        return this.EstoqueList.find(estoque => estoque.id_carro === id)
+    async cadastraEstoque(Estoque: Estoque): Promise<boolean> {
+
+        await executarComandoSQL(
+            `INSERT INTO Estoque (id_estoque, id_carro, quantidade, localizacao_patio, data_entrada)
+                VALUES (?, ?, ?, ?, ?)`,
+            [Estoque.id_estoque, Estoque.id_carro, Estoque.quantidade, Estoque.localizacao_patio, Estoque.data_entrada]
+        );
+        return true;
     }
 
-    cadastraEstoque(Estoque: Estoque) {
-        this.EstoqueList.push(Estoque)
+    async deletarEstoque(id: number): Promise<boolean> {
+        await executarComandoSQL(
+            "DELETE FROM Cliente WHERE id_estoque = ?",
+            [id]
+        );
+        return true;
     }
 
-    deletarEstoque(id: number) {
-        const index: number = this.EstoqueList.findIndex(estoque => estoque.id_estoque == id)
-        this.EstoqueList.splice(index, 1)
-    }
-    
-    atualizarEstoque(EstoqueAtualizado: Estoque): Estoque {
-        const index: number = this.EstoqueList.findIndex(estoque => estoque.id_estoque == EstoqueAtualizado.id_estoque)
-        if (this.EstoqueList[index]) {
-            this.EstoqueList[index].quantidade = EstoqueAtualizado.quantidade ?? this.EstoqueList[index].quantidade
-            this.EstoqueList[index].localizacao_patio = EstoqueAtualizado.localizacao_patio ?? this.EstoqueList[index].localizacao_patio
-        }
-        return EstoqueAtualizado;
+    async atualizarEstoque(EstoqueAtualizado: Estoque): Promise<boolean> {
+
+        await executarComandoSQL(
+            `UPDATE Cliente
+             SET id_estoque = ?,
+                 id_carro = ?,
+                 quantidade = ?,
+                 localizacao_patio = ?,
+                 data_entrada = ?,
+             WHERE id_estoque = ?`,
+            [EstoqueAtualizado.id_estoque, EstoqueAtualizado.id_carro, EstoqueAtualizado.quantidade, EstoqueAtualizado.localizacao_patio, EstoqueAtualizado.data_entrada]
+        );
+        return true;
     }
 }

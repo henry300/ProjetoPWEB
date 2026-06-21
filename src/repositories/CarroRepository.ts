@@ -3,7 +3,6 @@ import { executarComandoSQL } from "../database/mysql";
 
 export class CarroRepository {
     private static instance: CarroRepository;
-    private CarroList: Carro[] = []
 
     static getCreateTableQuery(): string {
         return `
@@ -28,12 +27,15 @@ export class CarroRepository {
     }
 
     async listaCarros(): Promise<Carro[]> {
-        const resultado = await executarComandoSQL(
+        const linha = await executarComandoSQL(
             "SELECT * FROM Carro",
             []
         );
 
-        return resultado as Carro[];
+        const carros: Carro[] = linha.map((linha: any) => {
+            return new Carro(linha.id_carro, linha.marca, linha.modelo, linha.ano, linha.placa, linha.preco, linha.cor);
+        })
+        return carros;
     }
 
     async listaCarroPorId(id: number): Promise<Carro | null> {
@@ -55,12 +57,13 @@ export class CarroRepository {
         );
     }
 
-    async deletarCarro(id_carro: number): Promise<void> {
+    async deletarCarro(id_carro: number): Promise<boolean> {
 
         await executarComandoSQL(
             "DELETE FROM Carro WHERE id_carro = ?",
             [id_carro]
         );
+        return true;
     }
 
     async existePlaca(placa: string): Promise<boolean> {
@@ -73,7 +76,7 @@ export class CarroRepository {
         return resultado.length > 0;
     }
 
-    async atualizarCarro(carroAtualizado: Carro): Promise<Carro> {
+    async atualizarCarro(carroAtualizado: Carro): Promise<void> {
 
         await executarComandoSQL(
             `UPDATE Carro
@@ -86,7 +89,5 @@ export class CarroRepository {
              WHERE id_carro = ?`,
             [carroAtualizado.marca, carroAtualizado.modelo, carroAtualizado.ano, carroAtualizado.placa, carroAtualizado.preco, carroAtualizado.cor, carroAtualizado.id_carro]
         );
-
-        return carroAtualizado;
     }
 }

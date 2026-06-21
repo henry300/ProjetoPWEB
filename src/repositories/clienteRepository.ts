@@ -67,7 +67,7 @@ export class ClienteRepository {
         return true;
     }
 
-    async atualizaCliente(clienteAtualizado: Cliente): Promise<Cliente> {
+    async atualizaCliente(clienteAtualizado: Cliente): Promise<boolean> {
 
         await executarComandoSQL(
             `UPDATE Cliente
@@ -81,7 +81,7 @@ export class ClienteRepository {
             [clienteAtualizado.id_cliente, clienteAtualizado.nome, clienteAtualizado.telefone, clienteAtualizado.cpf, clienteAtualizado.email, clienteAtualizado.cidade]
         );
 
-        return clienteAtualizado;
+        return true;
     }
 
     async deletaCliente(id_carro: number): Promise<boolean> {

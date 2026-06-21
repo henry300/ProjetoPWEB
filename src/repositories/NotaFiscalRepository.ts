@@ -1,11 +1,12 @@
 import { NotaFiscal } from "../models/NotaFiscal";
+import { executarComandoSQL } from "../database/mysql";
 
 export class NotaFiscalRepository {
     private static instance: NotaFiscalRepository;
     private notaFiscalList: NotaFiscal[] = []
 
     static getCreateTableQuery(): string {
-    return `
+        return `
     CREATE TABLE NotaFiscal (
         id_nota INT AUTO_INCREMENT PRIMARY KEY,
         numero_nota VARCHAR(50) NOT NULL UNIQUE,
@@ -29,41 +30,99 @@ export class NotaFiscalRepository {
         }
         return this.instance;
     }
+    async listaNotas(): Promise<NotaFiscal[]> {
+        const linha = await executarComandoSQL(
+            "SELECT * FROM notafiscal",
+            []
+        );
 
-    listaNotas(): NotaFiscal[] {
-        return this.notaFiscalList;
+        const notas: NotaFiscal[] = linha.map((linha: any) => {
+            return new NotaFiscal(linha.id_nota, linha.numero_nota, linha.data_emissao, linha.valor_total, linha.id_cliente, linha.id_vendedor, linha.id_carro);
+        })
+        return notas;
     }
 
-    listaNotaPorId(id: number): NotaFiscal | undefined {
-        return this.notaFiscalList.find(nota => nota.id_nota === id);
+    async listaNotaPorId(id: number): Promise<NotaFiscal | null> {
+
+        const resultado = await executarComandoSQL(
+            "SELECT * FROM notafiscal WHERE id_nota = ?",
+            [id]
+        );
+
+        return resultado.length > 0 ? resultado[0] : null;
     }
 
-    listaNotasPorCliente(id_cliente: number): NotaFiscal[] {
-        return this.notaFiscalList.filter(nota => nota.id_cliente === id_cliente);
+    async listaNotasPorCliente(id_cliente: number): Promise<NotaFiscal[]> {
+        const linha = await executarComandoSQL(
+            "SELECT * FROM notafiscal where id_cliente = ?",
+            [id_cliente]
+        );
+
+        const notas: NotaFiscal[] = linha.map((linha: any) => {
+            return new NotaFiscal(linha.id_nota, linha.numero_nota, linha.data_emissao, linha.valor_total, linha.id_cliente, linha.id_vendedor, linha.id_carro);
+        })
+        return notas;
     }
 
-    listaNotasPorVendedor(id_vendedor: number): NotaFiscal[] {
-        return this.notaFiscalList.filter(nota => nota.id_vendedor === id_vendedor);
+    async listaNotasPorVendedor(id_vendedor: number): Promise<NotaFiscal[]> {
+        const linha = await executarComandoSQL(
+            "SELECT * FROM notafiscal where id_vendedor = ?",
+            [id_vendedor]
+        );
+
+        const notas: NotaFiscal[] = linha.map((linha: any) => {
+            return new NotaFiscal(linha.id_nota, linha.numero_nota, linha.data_emissao, linha.valor_total, linha.id_cliente, linha.id_vendedor, linha.id_carro);
+        })
+        return notas;
     }
 
-    existeNotaPorCliente(id_cliente: number): boolean {
-        return this.notaFiscalList.some(nota => nota.id_cliente === id_cliente);
+    async existeNotaPorCliente(id_cliente: number): Promise<Boolean> {
+
+        const resultado = await executarComandoSQL(
+            "SELECT * FROM notafiscal where id_cliente = ?",
+            [id_cliente]
+        );
+
+        return resultado.length > 0;
     }
 
-    existeNotaPorVendedor(id_vendedor: number): boolean {
-        return this.notaFiscalList.some(nota => nota.id_vendedor === id_vendedor);
+    async existeNotaPorVendedor(id_vendedor: number): Promise<Boolean> {
+
+        const resultado = await executarComandoSQL(
+            "SELECT * FROM notafiscal where id_vendedor = ?",
+            [id_vendedor]
+        );
+
+        return resultado.length > 0;
     }
 
-    existeNotaPorCarro(id_carro: number): boolean {
-        return this.notaFiscalList.some(nota => nota.id_carro === id_carro);
+    async existeNotaPorCarro(id_carro: number): Promise<Boolean> {
+
+        const resultado = await executarComandoSQL(
+            "SELECT * FROM notafiscal where id_carro = ?",
+            [id_carro]
+        );
+
+        return resultado.length > 0;
     }
 
-    existeNumeroNota(numero_nota: string): boolean {
-        return this.notaFiscalList.some(nota => nota.numero_nota === numero_nota);
+    async existeNumeroNota(numero_nota: number): Promise<Boolean> {
+
+        const resultado = await executarComandoSQL(
+            "SELECT * FROM notafiscal where numero_nota = ?",
+            [numero_nota]
+        );
+
+        return resultado.length > 0;
     }
 
-    adicionaNota(nota: NotaFiscal): NotaFiscal {
-        this.notaFiscalList.push(nota);
-        return nota
+    async adicionaNota(nota: NotaFiscal): Promise<boolean> {
+
+        await executarComandoSQL(
+            `INSERT INTO notafiscal (id_nota, numero_nota, data_emissao, valor_total, id_cliente, id_vendedor, id_carro)
+                VALUES (?, ?, ?, ?, ?)`,
+            [nota.id_nota, nota.numero_nota, nota.data_emissao, nota.valor_total, nota.id_cliente, nota.id_vendedor, nota.id_carro]
+        );
+        return true;
     }
 }

@@ -73,9 +73,9 @@ export class EstoqueRepository {
     async cadastraEstoque(Estoque: Estoque): Promise<boolean> {
 
         await executarComandoSQL(
-            `INSERT INTO Estoque (id_estoque, id_carro, quantidade, localizacao_patio, data_entrada)
-                VALUES (?, ?, ?, ?, ?)`,
-            [Estoque.id_estoque, Estoque.id_carro, Estoque.quantidade, Estoque.localizacao_patio, Estoque.data_entrada]
+            `INSERT INTO Estoque (id_carro, quantidade, localizacao_patio, data_entrada)
+                VALUES (?, ?, ?, ?)`,
+            [Estoque.id_carro, Estoque.quantidade, Estoque.localizacao_patio, Estoque.data_entrada]
         );
         return true;
     }
@@ -92,13 +92,13 @@ export class EstoqueRepository {
 
         await executarComandoSQL(
             `UPDATE Cliente
-             SET id_estoque = ?,
+             SET 
                  id_carro = ?,
                  quantidade = ?,
                  localizacao_patio = ?,
                  data_entrada = ?,
              WHERE id_estoque = ?`,
-            [EstoqueAtualizado.id_estoque, EstoqueAtualizado.id_carro, EstoqueAtualizado.quantidade, EstoqueAtualizado.localizacao_patio, EstoqueAtualizado.data_entrada]
+            [EstoqueAtualizado.id_carro, EstoqueAtualizado.quantidade, EstoqueAtualizado.localizacao_patio, EstoqueAtualizado.data_entrada,EstoqueAtualizado.id_estoque]
         );
         return true;
     }

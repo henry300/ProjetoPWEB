@@ -30,8 +30,6 @@ export class VendedorService {
             throw new ErrorApp(400,"Comissão inválida");
         }
 
-        vendedorData.id_vendedor = Date.now();
-
         const novoVendedor = new Vendedor(vendedorData.id_vendedor, vendedorData.nome, vendedorData.matricula, vendedorData.comissao_percentual)
         this.VendedorRepository.CadastraVendedor(novoVendedor)
         return novoVendedor

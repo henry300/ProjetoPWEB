@@ -49,9 +49,9 @@ export class VendedorRepository {
     async CadastraVendedor(vendedor: Vendedor): Promise<boolean> {
 
         await executarComandoSQL(
-            `INSERT INTO vendedor (id_vendedor, nome, matricula, comissao_percentual)
-                VALUES (?, ?, ?, ?)`,
-            [vendedor.id_vendedor, vendedor.nome, vendedor.matricula, vendedor.comissao_percentual]
+            `INSERT INTO vendedor (nome, matricula, comissao_percentual)
+                VALUES (?, ?, ?)`,
+            [vendedor.nome, vendedor.matricula, vendedor.comissao_percentual]
         );
         return true;
     }
@@ -68,12 +68,12 @@ export class VendedorRepository {
 
         await executarComandoSQL(
             `UPDATE Cliente
-             SET id_vendedor = ?,
+             SET
                  nome = ?,
                  matricula = ?,
                  comissao_percentual = ?,
              WHERE id_vendedor = ?`,
-            [vendedorAtualizado.id_vendedor, vendedorAtualizado.nome, vendedorAtualizado.matricula, vendedorAtualizado.comissao_percentual]
+            [vendedorAtualizado.nome, vendedorAtualizado.matricula, vendedorAtualizado.comissao_percentual,vendedorAtualizado.id_vendedor]
         );
 
         return true;

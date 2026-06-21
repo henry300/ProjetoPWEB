@@ -119,8 +119,8 @@ export class NotaFiscalRepository {
     async adicionaNota(nota: NotaFiscal): Promise<boolean> {
 
         await executarComandoSQL(
-            `INSERT INTO notafiscal (id_nota, numero_nota, data_emissao, valor_total, id_cliente, id_vendedor, id_carro)
-                VALUES (?, ?, ?, ?, ?)`,
+            `INSERT INTO notafiscal (numero_nota, data_emissao, valor_total, id_cliente, id_vendedor, id_carro)
+                VALUES (?, ?, ?, ?)`,
             [nota.id_nota, nota.numero_nota, nota.data_emissao, nota.valor_total, nota.id_cliente, nota.id_vendedor, nota.id_carro]
         );
         return true;

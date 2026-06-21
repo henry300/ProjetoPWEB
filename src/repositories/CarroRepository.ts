@@ -52,7 +52,7 @@ export class CarroRepository {
 
         await executarComandoSQL(
             `INSERT INTO Carro (id_carro, marca, modelo, ano, placa, preco, cor)
-            VALUES (?, ?, ?, ?, ?, ?, ?)`,
+            VALUES (?, ?, ?, ?, ?, ?)`,
             [carro.id_carro, carro.marca, carro.modelo, carro.ano, carro.placa, carro.preco, carro.cor]
         );
     }

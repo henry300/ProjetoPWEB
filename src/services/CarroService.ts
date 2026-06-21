@@ -61,8 +61,6 @@ export class CarroService {
             throw new ErrorApp(409, "placa já cadastrada");
         }
 
-        carroData.id_carro = Date.now();
-
         const novoCarro = new Carro(carroData.id_carro, carroData.marca, carroData.modelo, carroData.ano, carroData.placa, carroData.preco, carroData.cor)
 
         await this.CarroRepository.cadastraCarro(novoCarro)

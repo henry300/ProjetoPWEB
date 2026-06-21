@@ -7,64 +7,83 @@ export class ClienteService {
     NotFiscalRepository: NotaFiscalRepository = NotaFiscalRepository.getInstance()
     ClienteRepository: ClienteRepository = ClienteRepository.getInstance();
 
-    listaClientes(): Cliente[] | number {
-        return this.ClienteRepository.listaClientes()
+    async listaClientes(): Promise<Cliente[] | number> {
+        return await this.ClienteRepository.listaClientes()
     }
 
-    listaClientePorId(id: any): Cliente | undefined {
+    async listaClientePorId(id: any): Promise<Cliente | null> {
         const idNumber: number = parseInt(id, 10);
-        if (!this.ClienteRepository.listaClientePorId(idNumber)) {
-            throw new ErrorApp(404,"Nenhum registro encontrado");
+
+        if (!await this.ClienteRepository.listaClientePorId(idNumber)) {
+            throw new ErrorApp(404, "Nenhum registro encontrado");
         }
-        return this.ClienteRepository.listaClientePorId(idNumber)
+
+        return await this.ClienteRepository.listaClientePorId(idNumber)
     }
 
-    cadastraCliente(clienteData: any) {
+    async cadastraCliente(clienteData: any) {
         if (!clienteData.cpf || !clienteData.nome || !clienteData.telefone) {
-            throw new ErrorApp(400,"Dados faltantes");
+            throw new ErrorApp(400, "Dados faltantes");
         }
-        if (this.ClienteRepository.existeCpf(clienteData.cpf)) {
-            throw new ErrorApp(409,"cpf já cadastrado");
+
+        if (await this.ClienteRepository.existeCpf(clienteData.cpf)) {
+            throw new ErrorApp(409, "cpf já cadastrado");
         }
-        const novoCliente = new Cliente(clienteData.nome, clienteData.telefone, clienteData.cpf, clienteData.email, clienteData.cidade)
-        this.ClienteRepository.adicionaCliente(novoCliente)
-        return novoCliente
+
+        clienteData.id_cliente = Date.now();
+
+        const novoCliente = new Cliente(clienteData.id_cliente, clienteData.nome, clienteData.telefone, clienteData.cpf, clienteData.email, clienteData.cidade);
+
+        await this.ClienteRepository.adicionaCliente(novoCliente);
+
+        return novoCliente;
     }
 
-    atualizaCliente(clienteData: any, id_cliente: any) {
+    async atualizaCliente(clienteData: any, id_cliente: any) {
         clienteData.id_cliente = id_cliente;
-        const cadastroAntigo = this.ClienteRepository.listaClientePorId(id_cliente)
+
+        const cadastroAntigo = await this.ClienteRepository.listaClientePorId(id_cliente);
 
         if (!cadastroAntigo) {
-            throw new ErrorApp(404,"Cliente não encontrado");
+            throw new ErrorApp(404, "Cliente não encontrado");
         }
+
         if (!clienteData.nome || !clienteData.telefone || !clienteData.cpf) {
-            throw new ErrorApp(400,"Dados faltantes");
+            throw new ErrorApp(400, "Dados faltantes");
         }
 
-        if (this.ClienteRepository.existeCpf(clienteData.cpf) && cadastroAntigo.cpf != clienteData.cpf) {
-            throw new ErrorApp(409,"cpf já cadastrado");
+        if (
+            await this.ClienteRepository.existeCpf(clienteData.cpf) &&
+            cadastroAntigo.cpf != clienteData.cpf
+        ) {
+            throw new ErrorApp(409, "cpf já cadastrado");
         }
-        return this.ClienteRepository.atualizaCliente(clienteData)
+
+        return await this.ClienteRepository.atualizaCliente(clienteData);
     }
 
-    deletaCliente(id: any) {
-        if (!this.ClienteRepository.listaClientePorId(id)) {
-            throw new ErrorApp(404,"Cliente não encontrado");
+    async deletaCliente(id: any) {
+        if (!await this.ClienteRepository.listaClientePorId(id)) {
+            throw new ErrorApp(404, "Cliente não encontrado");
         }
-        if (this.NotFiscalRepository.existeNotaPorCliente(id)) {
-            throw new ErrorApp(422,"Cliente possuí notas emitidas em seu nome")
+
+        if (await this.NotFiscalRepository.existeNotaPorCliente(id)) {
+            throw new ErrorApp(422, "Cliente possuí notas emitidas em seu nome");
         }
-        this.ClienteRepository.deletaCliente(id)
+
+        await this.ClienteRepository.deletaCliente(id);
     }
-    listaNotasPorCliente(id: number) {
-        if (!this.ClienteRepository.listaClientePorId(id)) {
-            throw new ErrorApp(404,"Cliente não encontrado")
+
+    async listaNotasPorCliente(id: number) {
+        if (!await this.ClienteRepository.listaClientePorId(id)) {
+            throw new ErrorApp(404, "Cliente não encontrado");
         }
-        if (this.NotFiscalRepository.listaNotasPorCliente(id).length === 0) {
-            throw new ErrorApp(404,"Não existe notas para esse cliente")
+
+        if ((await this.NotFiscalRepository.listaNotasPorCliente(id)).length === 0) {
+            throw new ErrorApp(404, "Não existe notas para esse cliente");
         }
-        return this.NotFiscalRepository.listaNotasPorCliente(id)
+
+        return await this.NotFiscalRepository.listaNotasPorCliente(id);
     }
 }
 

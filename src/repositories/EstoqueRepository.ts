@@ -58,7 +58,7 @@ export class EstoqueRepository {
 
         return resultado.length > 0;
     }
-    async listaEstoquePorIdCarro(id: number): Promise<Estoque[] | null> {
+    async listaEstoquePorIdCarro(id: number): Promise<Estoque | undefined> {
         const linha = await executarComandoSQL(
             "SELECT * FROM estoque where id_carro = ?",
             [id]
@@ -67,7 +67,7 @@ export class EstoqueRepository {
         const Estoques: Estoque[] = linha.map((linha: any) => {
             return new Estoque(linha.id_estoque, linha.id_carro, linha.quantidade, linha.localizacao_patio, linha.data_entrada);
         })
-        return Estoques;
+        return Estoques[0];
     }
 
     async cadastraEstoque(Estoque: Estoque): Promise<boolean> {

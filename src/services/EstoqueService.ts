@@ -2,33 +2,36 @@ import { Estoque } from "../models/Estoque"
 import { CarroRepository } from "../repositories/CarroRepository";
 import { EstoqueRepository } from "../repositories/EstoqueRepository"
 import { ErrorApp } from "../models/Error";
+import { promises } from "dns";
 
 export class EstoqueService {
     EstoqueRepository: EstoqueRepository = EstoqueRepository.getInstance()
     CarroRespository: CarroRepository = CarroRepository.getInstance();
 
-    listaEstoques(): Estoque[] | number {
+    async listaEstoques():Promise <Estoque[] | number> {
         return this.EstoqueRepository.listaEstoque()
     }
 
-    listaEstoquesId(id: number): Estoque | undefined {
-        if (!this.EstoqueRepository.listaEstoquePorId(id)){
+    async listaEstoquesId(id: number): Promise<Estoque | null> {
+        if (!await this.EstoqueRepository.listaEstoquePorId(id)){
             throw new ErrorApp(404,"Nenhum registro encontrado");
         }
-        return this.EstoqueRepository.listaEstoquePorId(id)
+        return await this.EstoqueRepository.listaEstoquePorId(id)
     }
 
-    listaEstoquesIdCarro(id: number): number | undefined {
-        if (!this.EstoqueRepository.listaEstoquePorIdCarro(id)) {
+     async listaEstoquesIdCarro(id: number): Promise<number> {
+
+        const estoque :Estoque | undefined = await this.EstoqueRepository.listaEstoquePorIdCarro(id)
+
+        if (estoque == undefined) {
             throw new ErrorApp(404,"Nenhum registro encontrado");
         }
-        const estoque = this.EstoqueRepository.listaEstoquePorIdCarro(id)
-        return estoque?.quantidade
+
+        return estoque.quantidade
     }
 
-    cadastraEstoque(EstoqueData: any) {
+    async cadastraEstoque(EstoqueData: any) {
         const dataAtual = new Date();
-        const anoAtual = dataAtual.getFullYear();
         const dataEstoque= new Date(EstoqueData.data_entrada)
 
         if (dataEstoque > dataAtual || isNaN(dataEstoque.getTime())) {
@@ -37,7 +40,7 @@ export class EstoqueService {
         if (!EstoqueData.id_carro || !EstoqueData.quantidade || !EstoqueData.localizacao_patio || !EstoqueData.data_entrada) {
             throw new ErrorApp(400,"Dados faltantes");
         }
-        if (this.EstoqueRepository.existeEstoque(EstoqueData.id_carro)) {
+        if (await this.EstoqueRepository.existeEstoque(EstoqueData.id_carro)) {
             throw new ErrorApp(409,"Carro já possuí um estoque ativo");
         }
         if (!this.CarroRespository.listaCarroPorId(EstoqueData.id_carro)) {
@@ -46,16 +49,17 @@ export class EstoqueService {
         if (EstoqueData.quantidade < 0) {
             throw new ErrorApp(400,"Quantidade deve ser igual ou maior que 0");
         }
-        const novoEstoque = new Estoque(EstoqueData.id_carro, EstoqueData.quantidade, EstoqueData.localizacao_patio, EstoqueData.data_entrada)
+        EstoqueData.id_estoque = Date.now();
+        const novoEstoque = new Estoque(EstoqueData.id_estoque, EstoqueData.id_carro, EstoqueData.quantidade, EstoqueData.localizacao_patio, EstoqueData.data_entrada)
         this.EstoqueRepository.cadastraEstoque(novoEstoque)
         return novoEstoque
     }
 
-    listaEstoquePorIdCarro(id: number) {
+    async listaEstoquePorIdCarro(id: number) {
         return this.EstoqueRepository.listaEstoquePorIdCarro(id)
     }
 
-    atualizaEstoque(EstoqueData: Estoque, id_estoque: number) {
+    async atualizaEstoque(EstoqueData: Estoque, id_estoque: number) {
         EstoqueData.id_estoque = id_estoque;
         if (!EstoqueData.id_carro || EstoqueData.quantidade == undefined || !EstoqueData.localizacao_patio || !EstoqueData.data_entrada) {
             throw new ErrorApp(400,"Dados faltantes");
@@ -69,14 +73,14 @@ export class EstoqueService {
         return this.EstoqueRepository.atualizarEstoque(EstoqueData)
     }
 
-    deletarEstoque(id: number): void {
+    async deletarEstoque(id: number){
         if (!this.EstoqueRepository.listaEstoquePorId(id)) {
             throw new ErrorApp(404,"Estoque não encontrado");
         }
         this.EstoqueRepository.deletarEstoque(id)
     }
     
-    existeEstoque(id_carro: number) {
+    async existeEstoque(id_carro: number) {
         return this.EstoqueRepository.existeEstoque(id_carro)
     }
 }

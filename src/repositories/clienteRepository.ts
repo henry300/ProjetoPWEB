@@ -7,8 +7,8 @@ export class ClienteRepository {
 
     static getCreateTableQuery(): string {
         return `
-        CREATE TABLE Cliente (
-            id_cliente INT AUTO_INCREMENT PRIMARY KEY,
+        CREATE TABLE IF NOT EXISTS Cliente (
+            id_cliente INT PRIMARY KEY,
             nome VARCHAR(100) NOT NULL,
             cpf VARCHAR(14) NOT NULL UNIQUE,
             telefone VARCHAR(20),

@@ -6,8 +6,8 @@ export class CarroRepository {
 
     static getCreateTableQuery(): string {
         return `
-        CREATE TABLE Carro (
-            id_carro INT AUTO_INCREMENT PRIMARY KEY,
+        CREATE TABLE IF NOT EXISTS Carro (
+            id_carro INT PRIMARY KEY,
             marca VARCHAR(50) NOT NULL,
             modelo VARCHAR(50) NOT NULL,
             ano INT NOT NULL,

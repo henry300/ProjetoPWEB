@@ -7,7 +7,7 @@ export class EstoqueController {
 
     async listaEstoque(req: Request, res: Response) {
         try {
-            return res.status(200).json(await this.estoqueService.listaEstoque())
+            return res.status(200).json(await this.estoqueService.listaEstoques())
         } catch (error: any) {
             return res.status(error.status).json({ message: error.message })
         }
@@ -16,7 +16,7 @@ export class EstoqueController {
     async listaEstoqueId(req: Request, res: Response) {
         const id: any = req.params.id
         try {
-            return res.status(200).json(await this.estoqueService.listaEstoqueId(id))
+            return res.status(200).json(await this.estoqueService.listaEstoquesId(id))
         } catch (error: any) {
             return res.status(error.status).json({ message: error.message })
         }

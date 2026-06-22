@@ -1,4 +1,8 @@
 import mysql, { Connection } from 'mysql2';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
 import { ClienteRepository } from '../repositories/clienteRepository';
 import { VendedorRepository } from '../repositories/VendedorRepository';
 import { CarroRepository } from '../repositories/CarroRepository';
@@ -6,11 +10,11 @@ import { EstoqueRepository } from '../repositories/EstoqueRepository';
 import { NotaFiscalRepository } from '../repositories/NotaFiscalRepository';
 
 const dbConfig = {
-    host: 'localhost',
-    port: 3306,
-    user: 'root',
-    password: '',
-    database: 'PROJETOPWEB'
+    host: process.env.DB_HOST || 'localhost',
+    port: Number(process.env.DB_PORT) || 3306,
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD ?? '',
+    database: process.env.DB_NAME || 'PROJETOPWEB'
 };
 
 const mysqlConnection: Connection = mysql.createConnection(dbConfig);

@@ -1,3 +1,6 @@
 **/node_modules/
 **/*.js
 **/dist/
+
+#variáveis de ambiente
+**/*.env

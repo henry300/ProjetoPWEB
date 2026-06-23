@@ -1,21 +1,23 @@
 import express, { Request, Response, Router } from "express";
-import { atualizarCarro, cadastrarCarro, deleteCarro, listaCarros, listarCarroPorId, listarCarrosDisponiveis } from "../controllers/carroController";
+
 import { atualizarEstoque, cadastrarEstoque, deletaEstoque, listaEstoques, listarEstoquePorId, listarEstoquePorIdCarro } from "../controllers/estoqueController";
 import { criarNotaFiscal, listarNotaFiscal, listarNotaFiscalPorId } from "../controllers/notaFiscalController";
 import { AtualizaVendedor, CadastraVendedor, deletarVendedor, listaNotasPorVendedor, listaVendedor, listaVendedorPorId } from "../controllers/vendedorController";
 import { clienteControler } from "../controllers/clienteControler";
+import { CarroController } from "../controllers/carroController";
 
 const router = Router();
 const ClienteControler = new clienteControler();
+const carroControler = new CarroController();
 
 
 // Carro
-router.get("/carros",listaCarros)
-router.get("/carros/disponiveis",listarCarrosDisponiveis)
-router.get("/carros/:id",listarCarroPorId)
-router.post("/carros",cadastrarCarro)
-router.put("/carros/:id",atualizarCarro)
-router.delete("/carros/:id",deleteCarro)
+router.get("/carros",(req: Request, res: Response) => {carroControler.listaCarros(req,res);})
+router.get("/carros/disponiveis",(req: Request, res: Response) => {carroControler.listarCarrosDisponiveis(req,res)});
+router.get("/carros/:id", (req: Request, res: Response) => {carroControler.listarCarroPorId(req,res)});
+router.put("/carros", (req: Request, res: Response) => {carroControler.cadastrarCarro(req,res)});
+router.put("/carros/id:", (req: Request, res: Response) => {carroControler.atualizarCarro(req, res)});
+router.delete("/carros/:id", (req: Request, res: Response) => {carroControler.deleteCarro(req, res)});
 
 // Estoque
 router.get("/estoque",listaEstoques)

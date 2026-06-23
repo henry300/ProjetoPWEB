@@ -63,9 +63,7 @@ export class CarroService {
 
         const novoCarro = new Carro(carroData.id_carro, carroData.marca, carroData.modelo, carroData.ano, carroData.placa, carroData.preco, carroData.cor)
 
-        await this.CarroRepository.cadastraCarro(novoCarro)
-
-        return novoCarro
+        return await this.CarroRepository.cadastraCarro(novoCarro)
     }
 
     async atualizaCarro(carroData: Carro, id_carro: number) {

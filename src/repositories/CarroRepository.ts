@@ -48,13 +48,15 @@ export class CarroRepository {
         return resultado.length > 0 ? resultado[0] : null;
     }
 
-    async cadastraCarro(carro: Carro): Promise<void> {
+    async cadastraCarro(carro: Carro): Promise<Carro> {
 
         await executarComandoSQL(
             `INSERT INTO Carro (marca, modelo, ano, placa, preco, cor)
             VALUES (?, ?, ?, ?, ?, ?)`,
             [carro.marca, carro.modelo, carro.ano, carro.placa, carro.preco, carro.cor]
         );
+
+        return await executarComandoSQL(`SELECT * FROM carro WHERE id_carro = LAST_INSERT_ID()`,[])
     }
 
     async deletarCarro(id_carro: number): Promise<boolean> {
@@ -76,7 +78,7 @@ export class CarroRepository {
         return resultado.length > 0;
     }
 
-    async atualizarCarro(carroAtualizado: Carro): Promise<void> {
+    async atualizarCarro(carroAtualizado: Carro): Promise<Carro> {
 
         await executarComandoSQL(
             `UPDATE Carro
@@ -89,5 +91,7 @@ export class CarroRepository {
              WHERE id_carro = ?`,
             [carroAtualizado.marca, carroAtualizado.modelo, carroAtualizado.ano, carroAtualizado.placa, carroAtualizado.preco, carroAtualizado.cor, carroAtualizado.id_carro]
         );
+
+        return await executarComandoSQL(`SELECT * FROM carro WHERE id_carro = ?`,[carroAtualizado.id_carro])
     }
 }

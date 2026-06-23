@@ -25,8 +25,7 @@ export class VendedorController {
 
     async CadastraVendedor(req: Request, res: Response) {
         try {
-            const novoVendedor = await this.vendedorService.CadastraVendedor(req.body)
-            res.status(201).json({ message: "Vendedor cadastrado com sucesso", novoVendedor })
+            res.status(201).json(await this.vendedorService.CadastraVendedor(req.body))
         }
         catch (error: any) {
             res.status(error.status ?? 500).json({ message: error.message })
@@ -37,8 +36,7 @@ export class VendedorController {
         const vendedorData = req.body
         const id = Number(req.params.id)
         try {
-            const vendedorAtualizado = await this.vendedorService.AtualizaVendedor(vendedorData, id)
-            res.status(200).json({ message: "Vendedor atualizado com sucesso", vendedorAtualizado })
+            res.status(200).json(await this.vendedorService.AtualizaVendedor(vendedorData, id))
         }
         catch (error: any) {
             res.status(error.status ?? 500).json({ message: error.message })
@@ -48,8 +46,7 @@ export class VendedorController {
     async deletarVendedor(req: Request, res: Response) {
         const id = Number(req.params.id)
         try {
-            const resultado = await this.vendedorService.deletarVendedor(id)
-            res.status(200).json({ message: "Vendedor deletado com sucessso", resultado })
+            res.status(200).json(await this.vendedorService.deletarVendedor(id))
         }
         catch (error: any) {
             res.status(error.status ?? 500).json({ message: error.message })

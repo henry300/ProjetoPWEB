@@ -50,8 +50,8 @@ export class EstoqueService {
             throw new ErrorApp(400,"Quantidade deve ser igual ou maior que 0");
         }
         const novoEstoque = new Estoque(EstoqueData.id_estoque, EstoqueData.id_carro, EstoqueData.quantidade, EstoqueData.localizacao_patio, EstoqueData.data_entrada)
-        this.EstoqueRepository.cadastraEstoque(novoEstoque)
-        return novoEstoque
+        
+        return await this.EstoqueRepository.cadastraEstoque(novoEstoque)
     }
 
     async listaEstoquePorIdCarro(id: number) {

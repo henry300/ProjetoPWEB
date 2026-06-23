@@ -45,14 +45,14 @@ export class VendedorRepository {
         return resultado.length > 0 ? resultado[0] : null;
     }
 
-    async CadastraVendedor(vendedor: Vendedor): Promise<boolean> {
+    async CadastraVendedor(vendedor: Vendedor): Promise<Vendedor> {
 
         await executarComandoSQL(
             `INSERT INTO vendedor (nome, matricula, comissao_percentual)
                 VALUES (?, ?, ?)`,
             [vendedor.nome, vendedor.matricula, vendedor.comissao_percentual]
         );
-        return true;
+        return await executarComandoSQL(`SELECT * FROM vendedor WHERE id_vendedor = LAST_INSERT_ID()`,[])
     }
 
     async DeletarVendedor(id: number): Promise<boolean> {
@@ -63,7 +63,7 @@ export class VendedorRepository {
         return true;
     }
 
-    async atualizaVendedor(vendedorAtualizado: Vendedor): Promise<boolean> {
+    async atualizaVendedor(vendedorAtualizado: Vendedor): Promise<Vendedor> {
 
         await executarComandoSQL(
             `UPDATE Vendedor
@@ -73,8 +73,7 @@ export class VendedorRepository {
              WHERE id_vendedor = ?;`,
             [vendedorAtualizado.nome, vendedorAtualizado.matricula, vendedorAtualizado.comissao_percentual,vendedorAtualizado.id_vendedor]
         );
-
-        return true;
+         return await executarComandoSQL(`SELECT * FROM vendedor WHERE id_vendedor = ?`,[vendedorAtualizado.id_vendedor])
     }
 
      async existeMatricula(matricula: string): Promise<Boolean> {

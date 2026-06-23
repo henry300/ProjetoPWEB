@@ -31,8 +31,8 @@ export class VendedorService {
         }
 
         const novoVendedor = new Vendedor(vendedorData.id_vendedor, vendedorData.nome, vendedorData.matricula, vendedorData.comissao_percentual)
-        this.VendedorRepository.CadastraVendedor(novoVendedor)
-        return novoVendedor
+        
+        return await this.VendedorRepository.CadastraVendedor(novoVendedor)
     }
 
     async AtualizaVendedor(vendedorData: Vendedor, id_vendedor: number) {

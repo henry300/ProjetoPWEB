@@ -69,14 +69,14 @@ export class EstoqueRepository {
         return Estoques[0];
     }
 
-    async cadastraEstoque(Estoque: Estoque): Promise<boolean> {
+    async cadastraEstoque(Estoque: Estoque): Promise<Estoque> {
 
         await executarComandoSQL(
             `INSERT INTO Estoque (id_carro, quantidade, localizacao_patio, data_entrada)
                 VALUES (?, ?, ?, ?)`,
             [Estoque.id_carro, Estoque.quantidade, Estoque.localizacao_patio, Estoque.data_entrada]
         );
-        return true;
+        return await executarComandoSQL(`SELECT * FROM estoque WHERE id_estoque = LAST_INSERT_ID()`,[])
     }
 
     async deletarEstoque(id: number): Promise<boolean> {
@@ -93,11 +93,10 @@ export class EstoqueRepository {
             `UPDATE estoque
              SET 
                  quantidade = ?,
-                 localizacao_patio = ?,
-                 data_entrada = ?
+                 localizacao_patio = ?
              WHERE id_estoque = ?`,
             [EstoqueAtualizado.quantidade, EstoqueAtualizado.localizacao_patio, EstoqueAtualizado.data_entrada,EstoqueAtualizado.id_estoque]
         );
-        return true;
+         return await executarComandoSQL(`SELECT * FROM estoque WHERE id_estoque = ?`,[EstoqueAtualizado.id_estoque])
     }
 }

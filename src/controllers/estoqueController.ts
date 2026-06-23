@@ -24,8 +24,7 @@ export class EstoqueController {
 
     async cadastraEstoque(req: Request, res: Response) {
         try {
-            const novoEstoque = await this.estoqueService.cadastraEstoque(req.body)
-            return res.status(201).json({ message: "Estoque Criado com sucesso", novoEstoque })
+            return res.status(201).json(await this.estoqueService.cadastraEstoque(req.body))
         } catch (error: any) {
             return res.status(error.status ?? 500).json({ message: error.message })
         }
@@ -35,8 +34,7 @@ export class EstoqueController {
         const EstoqueData = req.body
         const id = Number(req.params.id)
         try {
-            const EstoqueAtualizado = await this.estoqueService.atualizaEstoque(EstoqueData, id)
-            return res.status(200).json({ message: "Estoque atualizado com sucesso", EstoqueAtualizado })
+            return res.status(200).json(await this.estoqueService.atualizaEstoque(EstoqueData, id))
         } catch (error: any) {
             return res.status(error.status ?? 500).json({ message: error.message })
         }

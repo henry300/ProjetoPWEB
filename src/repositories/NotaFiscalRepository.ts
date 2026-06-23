@@ -123,6 +123,6 @@ export class NotaFiscalRepository {
                 VALUES (?, ?, ?, ?, ?, ?)`,
             [nota.numero_nota, nota.data_emissao, nota.valor_total, nota.id_cliente, nota.id_vendedor, nota.id_carro]
         );
-        return true;
+        return await executarComandoSQL(`SELECT * FROM notafiscal WHERE id_nota = LAST_INSERT_ID()`,[])
     }
 }

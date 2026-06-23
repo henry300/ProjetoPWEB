@@ -34,8 +34,7 @@ export class CarroController {
 
     async cadastrarCarro(req: Request, res: Response) {
         try {
-            const novoCarro = await this.carroService.cadastraCarro(req.body)
-            res.status(201).json({ message: "Carro criado com sucesso", novoCarro })
+            res.status(201).json(await this.carroService.cadastraCarro(req.body))
         }
         catch (error: any) {
             res.status(error.status ?? 500).json({ message: error.message })
@@ -45,8 +44,7 @@ export class CarroController {
         const carroData = req.body
         const id = Number(req.params.id)
         try {
-            const carroAtualizado = await this.carroService.atualizaCarro(carroData, id)
-            res.status(200).json({ message: "Carro atualizado com sucesso", carroAtualizado })
+            res.status(200).json(await this.carroService.atualizaCarro(carroData, id))
         }
         catch (error: any) {
             res.status(error.status ?? 500).json({ message: error.message })

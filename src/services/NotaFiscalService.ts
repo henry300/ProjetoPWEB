@@ -63,7 +63,7 @@ export class NotaFiscalService {
 
         estoques.quantidade --
 
-        this.EstoqueRepository.atualizarEstoque(estoques)
+        await this.EstoqueRepository.atualizarEstoque(estoques)
 
         const novaNota = new NotaFiscal(notaData.id_nota, notaData.numero_nota, notaData.data_emissao, notaData.valor_total, notaData.id_cliente, notaData.id_vendedor, notaData.id_carro)
         return await this.NotaFiscalRepository.adicionaNota(novaNota)

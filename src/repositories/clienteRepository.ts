@@ -57,17 +57,18 @@ export class ClienteRepository {
         return resultado.length > 0;
     }
 
-    async adicionaCliente(cliente: Cliente): Promise<number> {
+    async adicionaCliente(cliente: Cliente): Promise<Cliente> {
 
         await executarComandoSQL(
             `INSERT INTO Cliente (nome, telefone, cpf, email, cidade)
                 VALUES (?, ?, ?, ?, ?)`,
             [cliente.nome, cliente.telefone, cliente.cpf, cliente.email, cliente.cidade]
         );
-        return cliente.id_cliente;
+
+        return await executarComandoSQL(`SELECT * FROM Cliente WHERE id_cliente = LAST_INSERT_ID()`,[])
     }
 
-    async atualizaCliente(clienteAtualizado: Cliente): Promise<boolean> {
+    async atualizaCliente(clienteAtualizado: Cliente): Promise<Cliente> {
 
         await executarComandoSQL(
             `UPDATE Cliente
@@ -81,7 +82,7 @@ export class ClienteRepository {
             [clienteAtualizado.nome, clienteAtualizado.telefone, clienteAtualizado.cpf, clienteAtualizado.email, clienteAtualizado.cidade,clienteAtualizado.id_cliente]
         );
 
-        return true;
+         return await executarComandoSQL(`SELECT * FROM cliente WHERE id_cliente = ?`,[clienteAtualizado.id_cliente])
     }
 
     async deletaCliente(id_carro: number): Promise<boolean> {

@@ -26,8 +26,7 @@ export class clienteControler {
 
     async Cadastracliente(req: Request, res: Response) {
         try {
-            const novocliente = await this.clienteService.cadastraCliente(req.body)
-            return res.status(201).json({ message: "cliente cadastrado com sucesso", novocliente })
+            return res.status(201).json(await this.clienteService.cadastraCliente(req.body))
         }
         catch (error: any) {
             return res.status(error.status ?? 500).json({ message: error.message })
@@ -38,8 +37,7 @@ export class clienteControler {
         const clienteData = req.body
         const id = Number(req.params.id)
         try {
-            const clienteAtualizado = await this.clienteService.atualizaCliente(clienteData, id)
-            return res.status(200).json({ message: "cliente atualizado com sucesso", clienteAtualizado })
+            return res.status(200).json(await this.clienteService.atualizaCliente(clienteData, id))
         }
         catch (error: any) {
             return res.status(error.status ?? 500).json({ message: error.message })

@@ -32,9 +32,7 @@ export class ClienteService {
 
         const novoCliente = new Cliente(clienteData.id_cliente, clienteData.nome, clienteData.telefone, clienteData.cpf, clienteData.email, clienteData.cidade);
 
-        const id = await this.ClienteRepository.adicionaCliente(novoCliente);
-
-        return await this.ClienteRepository.listaClientePorId(id);
+        return await this.ClienteRepository.adicionaCliente(novoCliente);
     }
 
     async atualizaCliente(clienteData: any, id_cliente: any) {

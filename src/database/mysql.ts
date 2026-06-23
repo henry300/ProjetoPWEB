@@ -43,7 +43,7 @@ export async function inicializarBanco(): Promise<void> {
     console.log('Sincronizando schemas do banco de dados...');
 
     const schemas = [
-        `DROP TABLE IF EXISTS nota_fiscal`,
+        `DROP TABLE IF EXISTS notafiscal`,
         `DROP TABLE IF EXISTS estoque`,
         `DROP TABLE IF EXISTS carro`,
         `DROP TABLE IF EXISTS cliente`,

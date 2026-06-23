@@ -81,7 +81,7 @@ export class EstoqueRepository {
 
     async deletarEstoque(id: number): Promise<boolean> {
         await executarComandoSQL(
-            "DELETE FROM Cliente WHERE id_estoque = ?",
+            "DELETE FROM estoque WHERE id_estoque = ?",
             [id]
         );
         return true;

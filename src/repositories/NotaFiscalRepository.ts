@@ -120,8 +120,8 @@ export class NotaFiscalRepository {
 
         await executarComandoSQL(
             `INSERT INTO notafiscal (numero_nota, data_emissao, valor_total, id_cliente, id_vendedor, id_carro)
-                VALUES (?, ?, ?, ?)`,
-            [nota.id_nota, nota.numero_nota, nota.data_emissao, nota.valor_total, nota.id_cliente, nota.id_vendedor, nota.id_carro]
+                VALUES (?, ?, ?, ?, ?, ?)`,
+            [nota.numero_nota, nota.data_emissao, nota.valor_total, nota.id_cliente, nota.id_vendedor, nota.id_carro]
         );
         return true;
     }

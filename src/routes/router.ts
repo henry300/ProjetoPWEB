@@ -41,7 +41,7 @@ router.get("/vendedores", (req: Request, res: Response) => {vendedorController.l
 router.get("/vendedores/notas/:id", (req: Request, res: Response) => {vendedorController.listaNotasPorVendedor(req,res)});
 router.post("/vendedores", (req: Request, res: Response) => {vendedorController.CadastraVendedor(req,res)});
 router.put("/vendedores/:id", (req: Request, res: Response) => {vendedorController.AtualizaVendedor(req, res)});
-router.delete("vendedores", (req: Request, res: Response) => {vendedorController.deletarVendedor(req,res)});
+router.delete("/vendedores/:id", (req: Request, res: Response) => {vendedorController.deletarVendedor(req,res)});
 
 // Cliente
 router.get("/clientes/:id",(req: Request, res: Response) => {ClienteControler.listaclientePorId(req,res);})

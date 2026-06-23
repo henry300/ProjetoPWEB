@@ -43,7 +43,7 @@ export class EstoqueService {
         if (await this.EstoqueRepository.existeEstoque(EstoqueData.id_carro)) {
             throw new ErrorApp(409,"Carro já possuí um estoque ativo");
         }
-        if (!this.CarroRespository.listaCarroPorId(EstoqueData.id_carro)) {
+        if (!await this.CarroRespository.listaCarroPorId(EstoqueData.id_carro)) {
             throw new ErrorApp(404,"Carro não encontrado");
         }
         if (EstoqueData.quantidade < 0) {

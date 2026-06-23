@@ -9,7 +9,7 @@ export class NotaFiscalController {
         try {
             return res.status(200).json(await this.notaFiscalService.listaNotas())
         } catch (error: any) {
-            return res.status(error.status).json({ message: error.message })
+            return res.status(error.status ?? 500).json({ message: error.message })
         }
     }
 
@@ -18,7 +18,7 @@ export class NotaFiscalController {
         try {
             return res.status(200).json(await this.notaFiscalService.listaNotaPorId(id))
         } catch (error: any) {
-            return res.status(error.status).json({ message: error.message })
+            return res.status(error.status ?? 500).json({ message: error.message })
         }
     }
 
@@ -27,7 +27,7 @@ export class NotaFiscalController {
         try {
             return res.status(201).json(await this.notaFiscalService.emiteNota(notaData))
         } catch (error: any) {
-            return res.status(error.status).json({ message: error.message })
+            return res.status(error.status ?? 500).json({ message: error.message })
         }
     }
 }

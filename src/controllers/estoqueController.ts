@@ -9,7 +9,7 @@ export class EstoqueController {
         try {
             return res.status(200).json(await this.estoqueService.listaEstoques())
         } catch (error: any) {
-            return res.status(error.status).json({ message: error.message })
+            return res.status(error.status ?? 500).json({ message: error.message })
         }
     }
 
@@ -18,7 +18,7 @@ export class EstoqueController {
         try {
             return res.status(200).json(await this.estoqueService.listaEstoquesId(id))
         } catch (error: any) {
-            return res.status(error.status).json({ message: error.message })
+            return res.status(error.status ?? 500).json({ message: error.message })
         }
     }
 
@@ -27,7 +27,7 @@ export class EstoqueController {
             const novoEstoque = await this.estoqueService.cadastraEstoque(req.body)
             return res.status(201).json({ message: "Estoque Criado com sucesso", novoEstoque })
         } catch (error: any) {
-            return res.status(error.status).json({ message: error.message })
+            return res.status(error.status ?? 500).json({ message: error.message })
         }
     }
 
@@ -38,7 +38,7 @@ export class EstoqueController {
             const EstoqueAtualizado = await this.estoqueService.atualizaEstoque(EstoqueData, id)
             return res.status(200).json({ message: "Estoque atualizado com sucesso", EstoqueAtualizado })
         } catch (error: any) {
-            return res.status(error.status).json({ message: error.message })
+            return res.status(error.status ?? 500).json({ message: error.message })
         }
     }
 
@@ -48,7 +48,7 @@ export class EstoqueController {
             const estoque = await this.estoqueService.listaEstoquesIdCarro(id)
             return res.status(200).json({ quantidade: estoque })
         } catch (error: any) {
-            return res.status(error.status).json({ message: error.message })
+            return res.status(error.status ?? 500).json({ message: error.message })
         }
     }
 
@@ -58,7 +58,7 @@ export class EstoqueController {
             const estoque = await this.estoqueService.deletarEstoque(id)
             return res.status(200).json({ message: "Estoque deletado com sucesso", estoque })
         } catch (error: any) {
-            return res.status(error.status).json({ message: error.message })
+            return res.status(error.status ?? 500).json({ message: error.message })
         }
     }
 }

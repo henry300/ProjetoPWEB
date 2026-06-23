@@ -3,7 +3,6 @@ import { executarComandoSQL } from "../database/mysql";
 
 export class EstoqueRepository {
     private static instance: EstoqueRepository;
-    private EstoqueList: Estoque[] = []
 
     static getCreateTableQuery(): string {
         return `
@@ -91,14 +90,13 @@ export class EstoqueRepository {
     async atualizarEstoque(EstoqueAtualizado: Estoque): Promise<boolean> {
 
         await executarComandoSQL(
-            `UPDATE Cliente
+            `UPDATE estoque
              SET 
-                 id_carro = ?,
                  quantidade = ?,
                  localizacao_patio = ?,
-                 data_entrada = ?,
+                 data_entrada = ?
              WHERE id_estoque = ?`,
-            [EstoqueAtualizado.id_carro, EstoqueAtualizado.quantidade, EstoqueAtualizado.localizacao_patio, EstoqueAtualizado.data_entrada,EstoqueAtualizado.id_estoque]
+            [EstoqueAtualizado.quantidade, EstoqueAtualizado.localizacao_patio, EstoqueAtualizado.data_entrada,EstoqueAtualizado.id_estoque]
         );
         return true;
     }

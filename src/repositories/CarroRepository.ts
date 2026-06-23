@@ -51,9 +51,9 @@ export class CarroRepository {
     async cadastraCarro(carro: Carro): Promise<void> {
 
         await executarComandoSQL(
-            `INSERT INTO Carro (id_carro, marca, modelo, ano, placa, preco, cor)
+            `INSERT INTO Carro (marca, modelo, ano, placa, preco, cor)
             VALUES (?, ?, ?, ?, ?, ?)`,
-            [carro.id_carro, carro.marca, carro.modelo, carro.ano, carro.placa, carro.preco, carro.cor]
+            [carro.marca, carro.modelo, carro.ano, carro.placa, carro.preco, carro.cor]
         );
     }
 

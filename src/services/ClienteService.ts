@@ -13,7 +13,6 @@ export class ClienteService {
 
     async listaClientePorId(id: any): Promise<Cliente | null> {
         const idNumber: number = parseInt(id, 10);
-
         if (!await this.ClienteRepository.listaClientePorId(idNumber)) {
             throw new ErrorApp(404, "Nenhum registro encontrado");
         }

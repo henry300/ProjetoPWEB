@@ -41,17 +41,22 @@ export function executarComandoSQL(query: string, valores: any[]): Promise<any> 
 
 export async function inicializarBanco(): Promise<void> {
     console.log('Sincronizando schemas do banco de dados...');
-    
+
     const schemas = [
+        `DROP TABLE IF EXISTS nota_fiscal`,
+        `DROP TABLE IF EXISTS estoque`,
+        `DROP TABLE IF EXISTS carro`,
+        `DROP TABLE IF EXISTS cliente`,
+        `DROP TABLE IF EXISTS vendedor`,
         ClienteRepository.getCreateTableQuery(),
         VendedorRepository.getCreateTableQuery(),
         CarroRepository.getCreateTableQuery(),
         EstoqueRepository.getCreateTableQuery(),
         NotaFiscalRepository.getCreateTableQuery()
     ];
-    
+
     try {
-        
+
         await executarComandoSQL(`USE ${dbConfig.database}`, []);
         console.log(`Conectado ao schema: ${dbConfig.database}`);
 

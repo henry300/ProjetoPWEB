@@ -19,7 +19,7 @@ router.get("/carros",(req: Request, res: Response) => {carroController.listaCarr
 router.get("/carros/disponiveis",(req: Request, res: Response) => {carroController.listarCarrosDisponiveis(req,res)});
 router.get("/carros/:id", (req: Request, res: Response) => {carroController.listarCarroPorId(req,res)});
 router.post("/carros", (req: Request, res: Response) => {carroController.cadastrarCarro(req,res)});
-router.put("/carros/id:", (req: Request, res: Response) => {carroController.atualizarCarro(req, res)});
+router.put("/carros/:id", (req: Request, res: Response) => {carroController.atualizarCarro(req, res)});
 router.delete("/carros/:id", (req: Request, res: Response) => {carroController.deleteCarro(req, res)});
 
 // Estoque
@@ -36,12 +36,12 @@ router.get("/notas/:id", (req: Request, res: Response) => {notaFiscalController.
 router.post("/notas", (req: Request, res: Response) => {notaFiscalController.criarNotaFiscal(req,res)});
 
 //Vendedor
-router.get("/vendedor", (req: Request, res: Response) => {vendedorController.listaVendedor(req,res)});
-router.get("/vendedor/:id", (req: Request, res: Response) => {vendedorController.listaVendedorPorId(req,res)});
-router.get("/vendedor/notas/:id", (req: Request, res: Response) => {vendedorController.listaNotasPorVendedor(req,res)});
-router.post("/vendedor", (req: Request, res: Response) => {vendedorController.CadastraVendedor(req,res)});
-router.put("/vendedor/:id", (req: Request, res: Response) => {vendedorController.AtualizaVendedor(req, res)});
-router.delete("vendedor", (req: Request, res: Response) => {vendedorController.deletarVendedor(req,res)});
+router.get("/vendedores/:id", (req: Request, res: Response) => {vendedorController.listaVendedorPorId(req,res)});
+router.get("/vendedores", (req: Request, res: Response) => {vendedorController.listaVendedor(req,res)});
+router.get("/vendedores/notas/:id", (req: Request, res: Response) => {vendedorController.listaNotasPorVendedor(req,res)});
+router.post("/vendedores", (req: Request, res: Response) => {vendedorController.CadastraVendedor(req,res)});
+router.put("/vendedores/:id", (req: Request, res: Response) => {vendedorController.AtualizaVendedor(req, res)});
+router.delete("vendedores", (req: Request, res: Response) => {vendedorController.deletarVendedor(req,res)});
 
 // Cliente
 router.get("/clientes/:id",(req: Request, res: Response) => {ClienteControler.listaclientePorId(req,res);})

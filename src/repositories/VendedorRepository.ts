@@ -3,7 +3,6 @@ import { executarComandoSQL } from "../database/mysql";
 
 export class VendedorRepository {
     private static instance: VendedorRepository;
-    private VendedorList: Vendedor[] = []
 
     static getCreateTableQuery(): string {
         return `
@@ -67,12 +66,11 @@ export class VendedorRepository {
     async atualizaVendedor(vendedorAtualizado: Vendedor): Promise<boolean> {
 
         await executarComandoSQL(
-            `UPDATE Cliente
-             SET
-                 nome = ?,
-                 matricula = ?,
-                 comissao_percentual = ?,
-             WHERE id_vendedor = ?`,
+            `UPDATE Vendedor
+             SET nome = ?,
+                matricula = ?,
+                comissao_percentual = ?
+             WHERE id_vendedor = ?;`,
             [vendedorAtualizado.nome, vendedorAtualizado.matricula, vendedorAtualizado.comissao_percentual,vendedorAtualizado.id_vendedor]
         );
 
@@ -82,7 +80,7 @@ export class VendedorRepository {
      async existeMatricula(matricula: string): Promise<Boolean> {
 
         const resultado = await executarComandoSQL(
-            "SELECT * FROM vendedor where matricula = ?",
+            "SELECT * FROM vendedor where matricula = ?;",
             [matricula]
         );
 

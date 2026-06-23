@@ -13,7 +13,7 @@ export class VendedorService {
 
     async listaVendedorPorId(id: any): Promise<Vendedor | null> {
         const idNumber: number = parseInt(id, 10)
-        if (!this.VendedorRepository.listaVendedorPorId(idNumber)) {
+        if (!await this.VendedorRepository.listaVendedorPorId(idNumber)) {
             throw new ErrorApp(404,"Nenhum registro encontrado")
         }
         return await this.VendedorRepository.listaVendedorPorId(idNumber)

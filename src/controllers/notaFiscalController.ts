@@ -2,7 +2,7 @@ import { Request, Response } from "express"
 import { NotaFiscalService } from "../services/NotaFiscalService"
 
 export class NotaFiscalController {
-    
+
     private notaFiscalService = new NotaFiscalService()
 
     async listarNotaFiscal(req: Request, res: Response) {

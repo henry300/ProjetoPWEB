@@ -4,13 +4,13 @@ import { ClienteService } from "../services/ClienteService"
 export class clienteControler {
 
     private clienteService = new ClienteService();
-    
+
     async listacliente(req: Request, res: Response) {
         try {
             return res.status(200).json(await this.clienteService.listaClientes())
         }
         catch (error: any) {
-            return res.status(error.status?? 500).json({ message: error.message })
+            return res.status(error.status ?? 500).json({ message: error.message })
         }
     }
 
@@ -20,7 +20,7 @@ export class clienteControler {
             return res.status(200).json(await this.clienteService.listaClientePorId(id))
         }
         catch (error: any) {
-            return res.status(error.status?? 500).json({ message: error.message })
+            return res.status(error.status ?? 500).json({ message: error.message })
         }
     }
 
@@ -30,7 +30,7 @@ export class clienteControler {
             return res.status(201).json({ message: "cliente cadastrado com sucesso", novocliente })
         }
         catch (error: any) {
-            return res.status(error.status?? 500).json({ message: error.message })
+            return res.status(error.status ?? 500).json({ message: error.message })
         }
     }
 
@@ -42,7 +42,7 @@ export class clienteControler {
             return res.status(200).json({ message: "cliente atualizado com sucesso", clienteAtualizado })
         }
         catch (error: any) {
-            return res.status(error.status?? 500).json({ message: error.message })
+            return res.status(error.status ?? 500).json({ message: error.message })
         }
     }
 
@@ -63,7 +63,7 @@ export class clienteControler {
             return res.status(200).json(await this.clienteService.listaNotasPorCliente(id))
         }
         catch (error: any) {
-            return res.status(error.status?? 500).json({ message: error.message })
+            return res.status(error.status ?? 500).json({ message: error.message })
         }
     }
 

@@ -95,7 +95,7 @@ export class EstoqueRepository {
                  quantidade = ?,
                  localizacao_patio = ?
              WHERE id_estoque = ?`,
-            [EstoqueAtualizado.quantidade, EstoqueAtualizado.localizacao_patio, EstoqueAtualizado.data_entrada,EstoqueAtualizado.id_estoque]
+            [EstoqueAtualizado.quantidade, EstoqueAtualizado.localizacao_patio,EstoqueAtualizado.id_estoque]
         );
          return await executarComandoSQL(`SELECT * FROM estoque WHERE id_estoque = ?`,[EstoqueAtualizado.id_estoque])
     }

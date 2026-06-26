@@ -51,7 +51,7 @@ export class EstoqueRepository {
     async existeEstoque(id: number): Promise<Boolean> {
 
         const resultado = await executarComandoSQL(
-            "SELECT * FROM estoque WHERE id_estoque = ?",
+            "SELECT * FROM estoque WHERE id_carro = ?",
             [id]
         );
 
